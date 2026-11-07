@@ -10,6 +10,9 @@ const API_CONFIG = {
     releases: '/api/music/releases',
     featured: '/api/music/featured',
     fansWall: '/api/fans/wall',
+    exclusiveContent: '/api/content/exclusive',
+    blogPosts: '/api/content/blog',
+    events: '/api/content/events',
     playTrack: '/api/music/:id/play'
   }
 };

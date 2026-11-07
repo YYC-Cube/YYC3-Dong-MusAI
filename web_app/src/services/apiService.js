@@ -51,6 +51,15 @@ export const apiService = {
   
   // 获取粉丝墙
   getFansWall: () => apiClient.get(API_CONFIG.endpoints.fansWall),
+
+  // 获取独家内容
+  getExclusiveContent: () => apiClient.get(API_CONFIG.endpoints.exclusiveContent),
+
+  // 获取博客文章
+  getBlogPosts: () => apiClient.get(API_CONFIG.endpoints.blogPosts),
+
+  // 获取活动
+  getEvents: () => apiClient.get(API_CONFIG.endpoints.events),
   
   // 播放统计
   playTrack: (trackId, deviceId = 'web-player', location = 'Unknown') => 

@@ -10,7 +10,7 @@
  *
  * dependencies: express, helmet, cors, express-rate-limit, swagger, db/postgres
  * exports: app, start
- * notes: 默认入口；SQLite 与 Mongo 入口保留为 start:sqlite / start:mongo
+ * notes: 唯一服务入口；Mongo / SQLite / Mock 入口已下线
  */
 
 const express = require('express');

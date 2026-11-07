@@ -16,6 +16,29 @@
 
 ---
 
+## [1.6.0] - 2026-11-07
+
+### 新增
+
+- `ExclusiveContent` 接入 `/api/content/exclusive`
+- 新增 `ContentFeed`，接入 `/api/content/blog` 与 `/api/content/events`
+- `HomePage` 新增“独家内容”与“手记与现场”两个区块
+
+### 变更
+
+- 删除 Mongo / SQLite / Mock 服务入口：`server.js`、`server-sqlite.js`、`server-mock.js`、`server-with-db.js`
+- 删除遗留路由与 Mongoose 模型；移除 `mongoose`、`redis`、`bcryptjs`、`cloudinary`、`multer`、`express-validator`
+- `start_dev.sh` / `start_dev_full.sh` / `test_api.sh` 改为 PostgreSQL
+- 删除 Mongo/SQLite 数据库选择与安装脚本
+
+### 验证
+
+- `CI=true npm run build` 前端生产构建通过
+- 后端 `npm test`：2 suites / 17 tests 通过
+- 内容接口 4 / 2 / 3，前端构建产物正常
+
+---
+
 ## [1.5.0] - 2026-11-07
 
 ### 新增

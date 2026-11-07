@@ -14,6 +14,9 @@ export { default as FanWall } from './social/FanWall';
 // 独家内容组件
 export { default as ExclusiveContent } from './social/ExclusiveContent';
 
+// 手记与活动组件
+export { default as ContentFeed } from './social/ContentFeed';
+
 // 高级组件
 export { default as DynamicBackground } from './advanced/DynamicBackground';
 export { default as AdvancedMusicPlayer } from './advanced/AdvancedMusicPlayer';

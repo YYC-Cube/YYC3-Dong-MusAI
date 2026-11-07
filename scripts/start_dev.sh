@@ -1,45 +1,55 @@
 #!/bin/bash
+set -e
 
-# M98 董小姐音乐应用 - 一键启动脚本
+# M98 董小姐音乐应用 - 开发环境启动（PostgreSQL）
 
-echo "🚀 M98 董小姐音乐应用 - 开发环境启动"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+echo "M98 董小姐音乐应用 - 开发环境启动"
 echo "========================================"
 
-# 检查Node.js是否安装
-if ! command -v node &> /dev/null; then
-    echo "❌ Node.js 未安装，请先安装 Node.js"
-    exit 1
+if ! command -v node >/dev/null 2>&1; then
+  echo "Node.js 未安装，请先安装 Node.js"
+  exit 1
 fi
 
-# 检查数据库是否存在
-if [ ! -f "./database/m98_database.sqlite" ]; then
-    echo "📦 数据库文件不存在，正在初始化..."
-    cd /Users/yanyu/D-98
-    if [ -f "./setup_sqlite_database.sh" ]; then
-        ./setup_sqlite_database.sh
-    else
-        echo "❌ 找不到数据库初始化脚本"
-        exit 1
-    fi
-    cd M98_DongXiaoJie
+PGHOST_VALUE="${PGHOST:-localhost}"
+PGPORT_VALUE="${PGPORT:-5433}"
+PGUSER_VALUE="${PGUSER:-yanyu}"
+
+if ! pg_isready -h "$PGHOST_VALUE" -p "$PGPORT_VALUE" -U "$PGUSER_VALUE" >/dev/null 2>&1; then
+  echo "PostgreSQL 未就绪: ${PGUSER_VALUE}@${PGHOST_VALUE}:${PGPORT_VALUE}"
+  exit 1
 fi
 
-# 进入API服务目录
 cd api_service
 
-# 检查依赖是否安装
 if [ ! -d "node_modules" ]; then
-    echo "📦 正在安装依赖包..."
-    npm install
+  echo "安装 API 依赖..."
+  npm install
 fi
 
-# 启动API服务
-echo "🚀 正在启动API服务..."
-echo "📍 服务地址: http://localhost:4000"
-echo "📖 API文档: http://localhost:4000/docs"
-echo "💾 数据库: SQLite"
+echo "应用数据库迁移..."
+npm run pg:migrate
+
+if [ -f "$ROOT/database/m98_database.sqlite" ]; then
+  ARTIST_COUNT=$(psql -h "$PGHOST_VALUE" -p "$PGPORT_VALUE" -U "$PGUSER_VALUE" \
+    -d "${PGDATABASE:-yyc3_music}" -tAc "SELECT count(*) FROM m98.artists" 2>/dev/null || echo 0)
+  if [ "$ARTIST_COUNT" = "0" ]; then
+    echo "同步历史数据..."
+    npm run pg:import
+  fi
+fi
+
+echo "写入内容种子..."
+npm run pg:seed:content
+
 echo ""
+echo "服务地址: http://localhost:4000"
+echo "API 文档: http://localhost:4000/docs"
+echo "数据库: PostgreSQL ${PGDATABASE:-yyc3_music} (schema: ${PGSCHEMA:-m98})"
 echo "按 Ctrl+C 停止服务"
 echo "========================================"
 
-node src/server-sqlite.js
+exec npm start

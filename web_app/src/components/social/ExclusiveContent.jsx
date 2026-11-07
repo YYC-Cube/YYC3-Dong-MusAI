@@ -1,59 +1,45 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import { resolvePoster } from '../../config/assets';
+import apiService from '../../services/apiService';
 
 const ExclusiveContent = () => {
   const [selectedContent, setSelectedContent] = useState(null);
   const [subscribed, setSubscribed] = useState(false);
 
-  // 独家内容数据
-  const exclusiveContent = [
-    {
-      id: 1,
-      type: 'behind-scenes',
-      title: '《东方夜曲》创作幕后',
-      description: '深入了解这首融合古典与现代的作品诞生过程',
-      thumbnail: resolvePoster(0),
-      duration: '8:32',
-      isLocked: !subscribed,
-      preview: '在这首作品中，我尝试将古筝的韵味与合成器的未来感结合...',
-      tags: ['创作过程', '音乐理念', '东方美学']
-    },
-    {
-      id: 2,
-      type: 'philosophy',
-      title: '音乐哲学：数字时代的东方表达',
-      description: '董小姐的音乐理念分享：如何在科技中保持人文情怀',
-      thumbnail: resolvePoster(1),
-      duration: '12:45',
-      isLocked: !subscribed,
-      preview: '音乐不只是声音的艺术，更是情感与思想的载体...',
-      tags: ['音乐哲学', '东方思维', '数字艺术']
-    },
-    {
-      id: 3,
-      type: 'early-access',
-      title: '新作品抢先听：《量子诗》',
-      description: '尚未发布的全新单曲，探索量子物理与诗词的对话',
-      thumbnail: resolvePoster(2),
-      duration: '4:16',
-      isLocked: !subscribed,
-      preview: '这是一次大胆的尝试，将古诗词的意境与量子力学的奥妙结合...',
-      tags: ['新作品', '实验音乐', '抢先听']
-    },
-    {
-      id: 4,
-      type: 'live-session',
-      title: '私密现场：午夜录音室',
-      description: '深夜录音室的创作状态，感受最真实的音乐诞生瞬间',
-      thumbnail: resolvePoster(3),
-      duration: '15:23',
-      isLocked: !subscribed,
-      preview: '午夜时分，灵感最为活跃，这是我最喜欢的创作时光...',
-      tags: ['现场录音', '创作状态', '深度体验']
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  const fetchContent = useCallback(async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const response = await apiService.getExclusiveContent();
+      setItems(response.data.data || []);
+    } catch (err) {
+      console.error('独家内容加载失败:', err);
+      setError('独家内容加载失败，请稍后重试');
+    } finally {
+      setLoading(false);
     }
-  ];
+  }, []);
+
+  useEffect(() => {
+    fetchContent();
+  }, [fetchContent]);
+
+  const exclusiveContent = items.map((item, index) => ({
+    ...item,
+    locked: Boolean(item.isLocked) && !subscribed,
+    thumbnail: item.thumbnail || resolvePoster(index),
+    preview: item.description,
+    tags: item.tags || [
+      item.type === 'audio' ? '音频' : '视频',
+      item.isLocked ? '会员专属' : '免费'
+    ]
+  }));
 
   const handleSubscribe = () => {
     setSubscribed(true);
@@ -62,6 +48,8 @@ const ExclusiveContent = () => {
   };
 
   const contentTypeLabels = {
+    video: '视频',
+    audio: '音频',
     'behind-scenes': '幕后花絮',
     'philosophy': '音乐哲学',
     'early-access': '抢先体验',
@@ -121,17 +109,28 @@ const ExclusiveContent = () => {
         </motion.div>
       )}
 
+      {loading && <div className="content-status">正在加载独家内容…</div>}
+      {error && (
+        <div className="content-status error">
+          <span>{error}</span>
+          <button type="button" onClick={fetchContent}>重试</button>
+        </div>
+      )}
+      {!loading && !error && exclusiveContent.length === 0 && (
+        <div className="content-status">暂无独家内容</div>
+      )}
+
       <div className="content-grid">
         {exclusiveContent.map((content, index) => (
           <motion.div
             key={content.id}
-            className={`content-card ${content.isLocked ? 'locked' : ''}`}
+            className={`content-card ${content.locked ? 'locked' : ''}`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            whileHover={{ scale: content.isLocked ? 1 : 1.02, y: content.isLocked ? 0 : -5 }}
-            onClick={() => !content.isLocked && setSelectedContent(content)}
+            whileHover={{ scale: content.locked ? 1 : 1.02, y: content.locked ? 0 : -5 }}
+            onClick={() => !content.locked && setSelectedContent(content)}
           >
             <div className="content-thumbnail">
               <img 
@@ -142,7 +141,7 @@ const ExclusiveContent = () => {
                 }}
               />
               <div className="content-overlay">
-                {content.isLocked ? (
+                {content.locked ? (
                   <div className="lock-icon">🔒</div>
                 ) : (
                   <motion.div
@@ -166,23 +165,23 @@ const ExclusiveContent = () => {
               <h3>{content.title}</h3>
               <p className="content-description">{content.description}</p>
               
-              {!content.isLocked && (
+              {!content.locked && (
                 <div className="content-preview">
-                  <p>"{content.preview}"</p>
+                  <p>"{content.preview || content.description}"</p>
                 </div>
               )}
 
               <div className="content-tags">
-                {content.tags.map((tag, tagIndex) => (
+                {(content.tags || []).map((tag, tagIndex) => (
                   <span key={tagIndex} className="tag">
                     {tag}
                   </span>
                 ))}
               </div>
 
-              {content.isLocked ? (
+              {content.locked ? (
                 <div className="locked-message">
-                  <p>🔒 订阅会员解锁</p>
+                  <p>🔒 {content.unlockCondition || '订阅会员解锁'}</p>
                 </div>
               ) : (
                 <motion.button
@@ -232,8 +231,11 @@ const ExclusiveContent = () => {
               <div className="modal-content">
                 <div className="video-container">
                   <img 
-                    src={selectedContent.thumbnail} 
+                    src={selectedContent.thumbnail || resolvePoster(0)} 
                     alt={selectedContent.title}
+                    onError={(e) => {
+                      e.target.src = resolvePoster(0);
+                    }}
                   />
                   <div className="video-controls">
                     <button className="play-btn">▶ 播放</button>
@@ -245,10 +247,10 @@ const ExclusiveContent = () => {
                   <p className="description">{selectedContent.description}</p>
                   <div className="full-preview">
                     <h4>内容预览</h4>
-                    <p>"{selectedContent.preview}"</p>
+                    <p>"{selectedContent.preview || selectedContent.description}"</p>
                   </div>
                   <div className="tags">
-                    {selectedContent.tags.map((tag, index) => (
+                    {(selectedContent.tags || []).map((tag, index) => (
                       <span key={index} className="tag">{tag}</span>
                     ))}
                   </div>
@@ -439,6 +441,30 @@ const ExclusiveContainer = styled.section`
     }
   }
   
+  .content-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem 1rem;
+    color: #B8BCC8;
+    font-size: 1rem;
+
+    &.error {
+      color: #FF6B6B;
+    }
+
+    button {
+      background: rgba(138, 43, 226, 0.16);
+      border: 1px solid rgba(138, 43, 226, 0.35);
+      color: #E6EDF3;
+      border-radius: 999px;
+      padding: 0.6rem 1.4rem;
+      cursor: pointer;
+    }
+  }
+
   .content-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));

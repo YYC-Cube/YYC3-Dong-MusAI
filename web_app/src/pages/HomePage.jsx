@@ -10,6 +10,8 @@ import SocialMediaIntegration from '../components/advanced/SocialMediaIntegratio
 import VirtualConcertHub from '../components/advanced/VirtualConcertHub';
 import AICreationShowcase from '../components/advanced/AICreationShowcase';
 import MusicDataAnalytics from '../components/advanced/MusicDataAnalytics';
+import ExclusiveContent from '../components/social/ExclusiveContent';
+import ContentFeed from '../components/social/ContentFeed';
 
 // 音乐可视化组件
 const MusicVisualizer = ({ isPlaying, trackData }) => {
@@ -482,6 +484,8 @@ const HomePage = () => {
         releases={releases}
         onTrackSelect={(index) => setCurrentTrack(ASSETS.tracks[index % ASSETS.tracks.length])}
       />
+      <ExclusiveContent />
+      <ContentFeed />
       <VirtualConcertHub />
       <AICreationShowcase />
       <MusicDataAnalytics />

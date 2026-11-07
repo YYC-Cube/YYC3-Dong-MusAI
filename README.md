@@ -15,7 +15,7 @@
 
 <p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-8A2BE2?style=flat-square" alt="License"></a>
-  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.5.0-FF6B6B?style=flat-square" alt="Version"></a>
+  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.6.0-FF6B6B?style=flat-square" alt="Version"></a>
   <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-%3E%3D18-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
   <a href="https://react.dev/"><img src="https://img.shields.io/badge/react-18.2-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React"></a>
   <a href="https://expressjs.com/"><img src="https://img.shields.io/badge/express-4.18-000000?style=flat-square&logo=express&logoColor=white" alt="Express"></a>
@@ -86,7 +86,7 @@
 │   /api/artist  /api/music  /api/fans  /api/content            │
 │   helmet · cors · rate-limit · swagger                        │
 ├──────────────────────────────────────────────────────────────┤
-│   数据访问：PostgreSQL 15（目标）｜ MongoDB / SQLite（遗留）   │
+│   数据访问：PostgreSQL 15 + m98 schema（唯一入口）             │
 └───────────────────────────┬──────────────────────────────────┘
                             │
 ┌───────────────────────────▼──────────────────────────────────┐
@@ -99,9 +99,9 @@
 ```text
 M-DongXiaoJie/
 ├── web_app/          React 18 粉丝网站
-├── api_service/      Express API（PostgreSQL 主入口 + 遗留入口）
+├── api_service/      Express API（PostgreSQL 唯一入口）
 ├── content_db/       开发数据库与种子数据
-├── database/         运行期 SQLite
+├── database/         PostgreSQL 迁移脚本 + SQLite 迁移源（归档）
 ├── admin_panel/      Vue 3 管理后台（登录 + 总览 MVP）
 ├── mobile_app/       移动端（规划中）
 ├── marketing_tools/  营销自动化（规划中）
@@ -152,7 +152,7 @@ npm run dev
 
 > 管理后台开发默认账号：`admin` / `m98-admin-dev`，生产必须通过 `ADMIN_USERNAME` / `ADMIN_PASSWORD` 覆盖。
 >
-> 遗留入口：`npm run start:sqlite`、`npm run start:mongo`，仅用于对照，不再新增功能。
+> 历史 Mongo / SQLite / Mock 服务入口已下线；`pg:import` 与 `pg:verify` 仍可读取归档 SQLite 作为一次性迁移源。
 
 > 数据源已确认迁移至 **PostgreSQL 15**（`yyc3_music` / NAS `yyc3-music`），连接参数见 [开发环境指南](./docs/03-YYC3-项目开发-实施阶段/0302-YYC3-项目开发-开发环境指南.md)；音乐 API 远程通道为 `ssh yyc3-45`。
 
@@ -161,7 +161,8 @@ npm run dev
 ```bash
 cd api_service
 npm run pg:migrate     # 建立 m98 schema 与表结构
-npm run pg:import      # SQLite → PostgreSQL 幂等导入
+npm run pg:import      # 归档 SQLite → PostgreSQL 幂等导入
+npm run pg:seed:content # 写入独家内容 / 博客 / 活动
 npm run pg:verify      # 行数与播放量校验
 ```
 
@@ -242,10 +243,12 @@ npm run pg:verify      # 行数与播放量校验
 | ---- | :--: |
 | JS / Python / JSON 语法 | ✅ |
 | 资源引用一致性（零 404） | ✅ |
-| 后端单元/接口测试（2 suites / 7 tests） | ✅ |
-| SQLite API 冒烟（5/6 通过） | 🟡 |
-| 边界参数校验 | ❌ |
-| 依赖漏洞扫描（43 项，3 critical） | ❌ |
+| 后端单元/接口测试（2 suites / 17 tests） | ✅ |
+| PG API 冒烟（10 读 + 写 + 边界） | ✅ |
+| 前端内容 API 接入（exclusive / blog / events） | ✅ |
+| 前端生产构建（CI=true） | ✅ |
+| 边界参数校验 | ✅ |
+| 依赖漏洞扫描（待复测） | 🟡 |
 | 前端组件测试 | ⏸ 待接入 |
 | E2E / 性能 / 兼容性 | ⏸ 待接入 |
 

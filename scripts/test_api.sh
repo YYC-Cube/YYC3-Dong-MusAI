@@ -1,46 +1,51 @@
 #!/bin/bash
 
-# M98 API服务测试脚本
+# M98 API 服务测试脚本（PostgreSQL）
 
-echo "🧪 M98 API服务测试开始..."
-echo "=====================================\n"
+echo "M98 API 服务测试开始..."
+echo "====================================="
 
-# 检查服务是否启动
-echo "1. 检查服务健康状态..."
-curl -s "http://localhost:4000/health" | python -m json.tool
-echo "\n"
+echo "1. 健康检查..."
+curl -s "http://localhost:4000/health" | python3 -m json.tool
+echo ""
 
-# 测试艺术家资料API
-echo "2. 测试艺术家资料API..."
-curl -s "http://localhost:4000/api/artist/profile" | python -m json.tool
-echo "\n"
+echo "2. 艺人资料..."
+curl -s "http://localhost:4000/api/artist/profile" | python3 -m json.tool
+echo ""
 
-# 测试音乐作品API
-echo "3. 测试音乐作品API..."
-curl -s "http://localhost:4000/api/music/releases" | python -m json.tool
-echo "\n"
+echo "3. 音乐作品..."
+curl -s "http://localhost:4000/api/music/releases" | python3 -m json.tool
+echo ""
 
-# 测试推荐音乐API
-echo "4. 测试推荐音乐API..."
-curl -s "http://localhost:4000/api/music/featured" | python -m json.tool
-echo "\n"
+echo "4. 推荐音乐..."
+curl -s "http://localhost:4000/api/music/featured" | python3 -m json.tool
+echo ""
 
-# 测试粉丝墙API
-echo "5. 测试粉丝墙API..."
-curl -s "http://localhost:4000/api/fans/wall" | python -m json.tool
-echo "\n"
+echo "5. 粉丝墙..."
+curl -s "http://localhost:4000/api/fans/wall" | python3 -m json.tool
+echo ""
 
-# 测试播放统计API
-echo "6. 测试播放统计API..."
+echo "6. 独家内容..."
+curl -s "http://localhost:4000/api/content/exclusive" | python3 -m json.tool
+echo ""
+
+echo "7. 博客文章..."
+curl -s "http://localhost:4000/api/content/blog" | python3 -m json.tool
+echo ""
+
+echo "8. 活动..."
+curl -s "http://localhost:4000/api/content/events" | python3 -m json.tool
+echo ""
+
+echo "9. 播放统计..."
 curl -X POST "http://localhost:4000/api/music/1/play" \
   -H "Content-Type: application/json" \
   -d '{"deviceId": "test-device", "location": "Shanghai"}' \
-  | python -m json.tool
-echo "\n"
+  | python3 -m json.tool
+echo ""
 
-echo "=====================================\n"
-echo "✅ API服务测试完成！所有接口均正常工作。"
-echo "🚀 API服务运行在: http://localhost:4000"
-echo "📖 API文档地址: http://localhost:4000/docs"
-echo "💾 数据库类型: SQLite"
-echo "📄 数据库文件: /Users/yanyu/D-98/M98_DongXiaoJie/database/m98_database.sqlite"
+echo "====================================="
+echo "API 服务测试完成"
+echo "服务地址: http://localhost:4000"
+echo "API 文档: http://localhost:4000/docs"
+echo "数据库: PostgreSQL ${PGDATABASE:-yyc3_music} (schema: ${PGSCHEMA:-m98})"

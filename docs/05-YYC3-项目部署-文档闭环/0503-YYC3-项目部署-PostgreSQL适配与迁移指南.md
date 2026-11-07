@@ -3,7 +3,7 @@ file: 0503-YYC3-项目部署-PostgreSQL适配与迁移指南.md
 title: M98 董小姐音乐宇宙 — PostgreSQL 适配与迁移指南
 description: PostgreSQL 适配层 — m98 schema、迁移脚本、数据导入、校验与回滚
 author: YYC³ Team <admin@0379.email>
-version: v1.1.1
+version: v1.1.2
 created: 2026-11-07
 updated: 2026-11-07
 status: stable
@@ -266,15 +266,14 @@ COMMIT;
 | 命令 | 入口 | 数据库 |
 | ---- | ---- | ------ |
 | `npm start` / `npm run start:postgres` | `server-postgres.js` | PostgreSQL 15 |
-| `npm run start:sqlite` | `server-sqlite.js` | SQLite（遗留） |
-| `npm run start:mongo` | `server.js` | MongoDB（遗留） |
+| 历史入口 | 已下线 | Mongo / SQLite / Mock 服务文件已删除 |
 
 **后续待办**
 
-1. 前端内容组件切换为 `/api/content/*` 数据（当前仍部分使用本地静态数据）。
-2. 下线 Mongo / SQLite / Mock 入口与对应路由。
+1. 完成 NAS `yyc3-music` 联调与生产密钥注入。
+2. 增加内容写入与管理端 CRUD 的 PG 集成测试。
 3. 为 `npm audit` 高危依赖建立升级窗口。
-4. 增加内容写入与管理端 CRUD 的 PG 集成测试。
+4. 评估前端大文件拆分与组件去重。
 
 **接口契约保持不变**，前端与管理后台无需改动。
 
@@ -291,7 +290,8 @@ COMMIT;
 | 内容表 | 已通过 `pg:seed:content` 写入 4 / 2 / 3 条，脚本可重复执行 |
 | 序列 | 导入后已通过 `setval` 对齐 `BIGSERIAL`，可继续自增 |
 | 回滚备份 | 生产回滚前执行 `pg_dump -n m98` |
-| 入口切换 | `npm start` 已指向 PG；SQLite / Mongo 仅用于遗留对照 |
+| 入口切换 | `npm start` 已指向 PG；Mongo / SQLite / Mock 服务入口已删除 |
+| 前端接入 | `ExclusiveContent` 与 `ContentFeed` 已改为 `/api/content/*` |
 
 ---
 
@@ -299,6 +299,7 @@ COMMIT;
 
 | 版本 | 日期 | 变更内容 | 作者 |
 | ---- | ---- | -------- | ---- |
+| v1.1.2 | 2026-11-07 | 记录入口下线与前端内容接入 | YYC³ Team |
 | v1.1.1 | 2026-11-07 | 内容查询与 PG 测试库落地 | YYC³ Team |
 | v1.1.0 | 2026-11-07 | 查询层接入与入口切换完成 | YYC³ Team |
 | v1.0.0 | 2026-11-07 | 建立 PostgreSQL 适配与迁移指南：m98 schema、迁移/导入/校验脚本、实测结果与回滚方案 | YYC³ Team |

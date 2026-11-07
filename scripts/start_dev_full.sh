@@ -1,67 +1,64 @@
 #!/bin/bash
+set -e
 
-# M98 董小姐音乐应用 - 完整开发环境启动脚本
+# M98 董小姐音乐应用 - 完整开发环境启动（API + Web）
 
-echo "🚀 M98 董小姐音乐应用 - 开发环境启动"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+echo "M98 董小姐音乐应用 - 完整开发环境启动"
 echo "========================================"
 
-# 检查Node.js是否安装
-if ! command -v node &> /dev/null; then
-    echo "❌ Node.js 未安装，请先安装 Node.js"
-    exit 1
+if ! command -v node >/dev/null 2>&1; then
+  echo "Node.js 未安装，请先安装 Node.js"
+  exit 1
 fi
 
-# 检查数据库是否存在
-if [ ! -f "./database/m98_database.sqlite" ]; then
-    echo "📦 数据库文件不存在，正在初始化..."
-    cd /Users/yanyu/D-98
-    if [ -f "./setup_sqlite_database.sh" ]; then
-        ./setup_sqlite_database.sh
-    else
-        echo "❌ 找不到数据库初始化脚本"
-        exit 1
-    fi
-    cd M98_DongXiaoJie
+PGHOST_VALUE="${PGHOST:-localhost}"
+PGPORT_VALUE="${PGPORT:-5433}"
+PGUSER_VALUE="${PGUSER:-yanyu}"
+
+if ! pg_isready -h "$PGHOST_VALUE" -p "$PGPORT_VALUE" -U "$PGUSER_VALUE" >/dev/null 2>&1; then
+  echo "PostgreSQL 未就绪: ${PGUSER_VALUE}@${PGHOST_VALUE}:${PGPORT_VALUE}"
+  exit 1
 fi
 
-# 检查并安装API服务依赖
-echo "📦 检查API服务依赖..."
 cd api_service
 if [ ! -d "node_modules" ]; then
-    echo "正在安装API服务依赖..."
-    npm install
+  echo "安装 API 依赖..."
+  npm install
 fi
 
-# 启动API服务 (后台运行)
-echo "🚀 启动API服务..."
-node src/server-sqlite.js &
+npm run pg:migrate
+if [ -f "$ROOT/database/m98_database.sqlite" ]; then
+  ARTIST_COUNT=$(psql -h "$PGHOST_VALUE" -p "$PGPORT_VALUE" -U "$PGUSER_VALUE" \
+    -d "${PGDATABASE:-yyc3_music}" -tAc "SELECT count(*) FROM m98.artists" 2>/dev/null || echo 0)
+  if [ "$ARTIST_COUNT" = "0" ]; then
+    npm run pg:import
+  fi
+fi
+npm run pg:seed:content
+
+echo "启动 API 服务..."
+npm start &
 API_PID=$!
-echo "API服务已启动 (PID: $API_PID)"
+trap 'kill "$API_PID" 2>/dev/null || true' EXIT
 
-# 等待API服务启动
-sleep 3
+sleep 2
 
-# 检查并安装前端依赖
-echo "📦 检查前端服务依赖..."
-cd ../web_app
+cd "$ROOT/web_app"
 if [ ! -d "node_modules" ]; then
-    echo "正在安装前端依赖..."
-    npm install
+  echo "安装 Web 依赖..."
+  npm install
 fi
 
-# 启动前端服务
-echo "🚀 启动前端服务..."
 echo ""
 echo "========================================"
-echo "🌐 服务地址:"
-echo "🎵 前端主页: http://localhost:3000"
-echo "🔗 API服务: http://localhost:4000"
-echo "📖 API文档: http://localhost:4000/docs"
-echo "💾 数据库: SQLite"
-echo ""
-echo "🛑 停止服务: 按 Ctrl+C 或运行 ./stop_dev.sh"
-echo "🧪 测试服务: ./test_homepage.sh"
+echo "前端主页: http://localhost:3000"
+echo "API 服务: http://localhost:4000"
+echo "API 文档: http://localhost:4000/docs"
+echo "数据库: PostgreSQL ${PGDATABASE:-yyc3_music} (schema: ${PGSCHEMA:-m98})"
+echo "停止服务: Ctrl+C"
 echo "========================================"
 
-# 启动前端服务 (前台运行，这样可以看到日志)
 npm start
