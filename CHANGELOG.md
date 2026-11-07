@@ -1,0 +1,77 @@
+# 变更日志
+
+本项目遵循 [Semantic Versioning](https://semver.org/) 与 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 规范。
+
+---
+
+## [Unreleased]
+
+### 计划
+
+- 移除 `server.js` 重复监听
+- 修正 `docker-compose.yml` 中不存在的 AI 服务
+- 数据源收敛为单一事实源
+- 列表接口参数校验与限流
+- `.env` 密钥治理与 `.env.example`
+
+---
+
+## [1.1.0] - 2026-11-07
+
+### 新增
+
+- `web_app/src/config/assets.js`：全局资产清单，统一 Logo、封面、海报、曲库与多端图标引用
+- `web_app/public/manifest.json`：PWA 清单，接入真实应用图标
+- 播放器接入 `<audio>`：真实播放/暂停、进度跳转、音量、自动续播
+- `docs/` 十二阶段文档体系：15 篇标准文档与目录索引
+- 开源治理文件：`LICENSE`、`CODE_OF_CONDUCT.md`、`CONTRIBUTING.md`、`SECURITY.md`、`CHANGELOG.md`
+- 根 `README.md`：顶图、徽章、资产体系、文档矩阵、路线图与仓库关键词
+
+### 变更
+
+- 前端所有 `/assets/**` 引用改为 `public/D-*` 真实资产
+- `index.html` favicon / OG / Apple Touch Icon 指向真实资产
+- 导航栏展示品牌 Logo
+- `HomePage` 曲库与封面切换到本地资产，播放列表统一为 11 首
+
+### 修复
+
+- 修复媒体资源全量 404 问题
+- 修复播放器“仅模拟进度、无真实音频”问题
+- 修复粉丝墙、独家内容、社交与演出卡片的破图回退
+
+### 文档
+
+- 新增 [全维度调研报告](docs/04-YYC3-项目测试-审核阶段/0401-YYC3-项目测试-全维度调研报告.md)
+- 新增 [测试方案与用例](docs/04-YYC3-项目测试-审核阶段/0402-YYC3-项目测试-测试方案与用例.md)
+- 新增 [安全审计报告](docs/07-YYC3-项目合规-安全保障/0701-YYC3-项目合规-安全审计报告.md)
+- 新增 [技术债与演进路线](docs/11-YYC3-智能演进-优化阶段/1101-YYC3-智能演进-技术债与演进路线.md)
+
+---
+
+## [1.0.0] - 2025-07-06
+
+### 新增
+
+- 艺术家主页、作品列表、粉丝墙、独家内容、虚拟演出、数据看板、社交聚合
+- Express API：artist / music / fans / content 四组路由
+- MongoDB 模型 `Artist`、`Release`
+- SQLite 演示入口与数据库结构
+- Swagger API 文档
+- Docker / docker-compose 基础配置
+
+### 已知问题
+
+- `server.js` 重复监听
+- compose 引用不存在的 AI 服务
+- 前端媒体资源路径失效
+- 密钥硬编码
+- 仓库无版本控制
+
+---
+
+<p align="center">
+  <b>YYC³</b>（YanYuCloudCube™ · 注册商标）<br>
+  言启象限 | 语枢未来<br>
+  <sub>© 2026 YanYuCloudCube™（YYC³）· <a href="mailto:admin@0379.email">admin@0379.email</a></sub>
+</p>

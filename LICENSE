@@ -1,0 +1,48 @@
+MIT License
+
+Copyright (c) 2026 YanYuCloudCube™（YYC³）· M98 董小姐音乐宇宙
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+================================================================================
+MEDIA ASSETS NOTICE — 媒体资产特别声明
+================================================================================
+
+This MIT License applies ONLY to the source code in this repository.
+
+The following media assets are NOT covered by the MIT License and remain the
+exclusive property of 董小姐（M98）and/or the respective rights holders:
+
+  - public/D-Music/            （音乐作品，11 首 MP3）
+  - public/D-cover/            （作品封面，8 张）
+  - public/D-poster/           （宣传海报，6 张）
+  - public/D-MusAI.png
+  - public/D-music.png
+  - public/music.png
+  - public/D-Music-icons/      （品牌 Logo 与多端应用图标）
+
+No part of these assets may be copied, redistributed, sublicensed, modified,
+or used commercially without prior written authorization from the rights
+holders. All rights reserved.
+
+The name "YYC³", "YanYuCloudCube™", "M98" and "董小姐" are trademarks or
+brand identifiers of their respective owners and are not licensed under MIT.
+
+For licensing inquiries: admin@0379.email
+================================================================================

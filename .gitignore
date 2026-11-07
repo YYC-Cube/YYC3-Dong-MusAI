@@ -1,0 +1,38 @@
+# MCP configuration with sensitive tokens
+.vscode/mcp.json
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dependencies
+node_modules/
+
+# Build outputs
+build/
+dist/
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# macOS
+.DS_Store
+
+# Generated asset copies (source of truth: /public)
+web_app/public/D-Music/
+web_app/public/D-Music-icons/
+web_app/public/D-cover/
+web_app/public/D-poster/
+web_app/public/D-MusAI.png
+web_app/public/D-music.png
+web_app/public/music.png

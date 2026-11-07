@@ -1,0 +1,46 @@
+services:
+  # 粉丝网站
+  web:
+    build: ./web_app
+    ports:
+      - "3000:3000"
+    environment:
+      - API_BASE_URL=http://api:4000
+    depends_on:
+      - api
+
+  # 主API服务
+  api:
+    build: ./api_service
+    ports:
+      - "4000:4000"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=27017
+      - REDIS_HOST=redis
+    depends_on:
+      - db
+      - redis
+
+  # AI服务
+  ai-lyrics:
+    build: ./ai_services/lyrics_generator
+    ports:
+      - "5001:5000"
+
+  # 数据库
+  db:
+    image: mongo:5.0
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+
+  # Redis缓存
+  redis:
+    image: redis:6-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  mongodb_data:

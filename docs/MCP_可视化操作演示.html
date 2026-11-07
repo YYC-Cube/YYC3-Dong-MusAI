@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP 操作演示 - 手把手教你</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .step {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateX(5px);
+        }
+        
+        .step h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+        
+        .mock-interface {
+            background: #2f3349;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            color: white;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .button.success {
+            background: #27ae60;
+        }
+        
+        .button.danger {
+            background: #e74c3c;
+        }
+        
+        .status {
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        
+        .status.online {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status.offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .config-example {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        
+        .arrow {
+            font-size: 2em;
+            color: #3498db;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .interactive-demo {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px dashed #bdc3c7;
+        }
+        
+        .demo-server {
+            background: #34495e;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #27ae60;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .troubleshooting {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .troubleshooting h4 {
+            color: #c53030;
+            margin-top: 0;
+        }
+        
+        .success-message {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .success-message h4 {
+            color: #38a169;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 MCP 操作演示</h1>
+        <p style="text-align: center; font-size: 1.2em; color: #666;">跟着步骤走，3分钟学会MCP！</p>
+        
+        <div class="step">
+            <h3>步骤1：找到MCP配置界面</h3>
+            <p>MCP通常在这些地方：</p>
+            <div class="mock-interface">
+                <div>📁 VS Code → 侧边栏 → 扩展</div>
+                <div>🌐 网页应用 → 设置 → MCP配置</div>
+                <div>💻 桌面应用 → 工具 → 配置</div>
+            </div>
+            <div class="highlight">
+                <strong>💡 提示：</strong>如果找不到，试试搜索"MCP"、"服务器"或"配置"
+            </div>
+        </div>
+        
+        <div class="arrow">⬇️</div>
+        
+        <div class="step">
+            <h3>步骤2：启用MCP服务器</h3>
+            <p>看到这样的界面：</p>
+            <div class="interactive-demo">
+                <h4>MCP服务器管理</h4>
+                <div class="demo-server">
+                    <div>
+                        <strong>AI服务器</strong><br>
+                        <small>http://localhost:8000</small>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="server1" onchange="toggleServer(this, 'status1')">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div id="status1" class="status offline">● 离线</div>
+                
+                <div class="demo-server">
+                    <div>
+                        <strong>数据分析服务器</strong><br>
+                        <small>http://localhost:8001</small>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="server2" onchange="toggleServer(this, 'status2')">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div id="status2" class="status offline">● 离线</div>
+            </div>
+            <div class="highlight">
+                <strong>🎯 操作：</strong>点击右边的开关按钮，从灰色变成绿色就是启用了！
+            </div>
+        </div>
+        
+        <div class="arrow">⬇️</div>
+        
+        <div class="step">
+            <h3>步骤3：配置文件方式（可选）</h3>
+            <p>如果更喜欢改配置文件：</p>
+            <div class="config-example">
+{
+  "mcp_servers": [
+    {
+      "name": "我的AI服务器",
+      "address": "http://localhost:8000",
+      "enabled": true
+    },
+    {
+      "name": "数据分析服务器", 
+      "address": "http://localhost:8001",
+      "enabled": false
+    }
+  ]
+}
+            </div>
+            <div class="highlight">
+                <strong>📝 说明：</strong>"enabled": true 表示启用，"enabled": false 表示禁用
+            </div>
+        </div>
+        
+        <div class="arrow">⬇️</div>
+        
+        <div class="step">
+            <h3>步骤4：验证是否成功</h3>
+            <div class="success-message">
+                <h4>✅ 成功的标志</h4>
+                <p>● 界面显示绿色"已连接"<br>
+                   ● 服务器状态显示"运行中"<br>
+                   ● 没有红色错误提示</p>
+            </div>
+            
+            <div class="troubleshooting">
+                <h4>❌ 常见问题</h4>
+                <p><strong>问题1：</strong>找不到MCP在哪里<br>
+                   <strong>解决：</strong>按 Ctrl+Shift+P (Mac: Cmd+Shift+P) 搜索"MCP"</p>
+                
+                <p><strong>问题2：</strong>开关点了没反应<br>
+                   <strong>解决：</strong>等待3-5秒，或刷新页面重试</p>
+                
+                <p><strong>问题3：</strong>显示"连接失败"<br>
+                   <strong>解决：</strong>检查服务器地址是否正确，确保服务器在运行</p>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>🎉 完成！</h3>
+            <p>现在您已经成功启用了MCP！可以开始使用各种AI功能了。</p>
+            <div class="highlight">
+                <strong>记住：</strong>MCP就像一个电灯开关，开了就能用，关了就不能用。不要想得太复杂！
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleServer(checkbox, statusId) {
+            const status = document.getElementById(statusId);
+            if (checkbox.checked) {
+                status.textContent = '● 在线';
+                status.className = 'status online';
+            } else {
+                status.textContent = '● 离线';
+                status.className = 'status offline';
+            }
+        }
+    </script>
+</body>
+</html>
