@@ -15,7 +15,7 @@
 
 <p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-8A2BE2?style=flat-square" alt="License"></a>
-  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.1.1-FF6B6B?style=flat-square" alt="Version"></a>
+  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.1.2-FF6B6B?style=flat-square" alt="Version"></a>
   <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-%3E%3D18-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
   <a href="https://react.dev/"><img src="https://img.shields.io/badge/react-18.2-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React"></a>
   <a href="https://expressjs.com/"><img src="https://img.shields.io/badge/express-4.18-000000?style=flat-square&logo=express&logoColor=white" alt="Express"></a>
@@ -45,7 +45,7 @@
 | 艺人 | 董小姐（艺名 M98） |
 | 定位 | 音乐人官网 + 粉丝社区 + 数据洞察 + AI 创作展示 |
 | 技术栈 | React 18 · Express 4 · PostgreSQL 15 · Docker |
-| 数据源 | 主库 `yyc3_music`（PG15，本地 `5433`，NAS Docker `yyc3-music`） |
+| 数据源 | 主库 `yyc3_music`（PG15，`yanyu@localhost:5433` 本机免密，NAS Docker `yyc3-music`） |
 | 当前阶段 | 演示级可用，工程化推进中 |
 | 品牌主色 | `#8A2BE2` 紫罗兰 × `#FF6B6B` 珊瑚红 × `#0D1117` 深空黑 |
 

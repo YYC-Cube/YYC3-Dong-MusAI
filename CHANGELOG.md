@@ -16,6 +16,20 @@
 
 ---
 
+## [1.1.2] - 2026-11-07
+
+### 文档
+
+- 确认本地 PostgreSQL 15 连接：`yanyu@localhost:5433`，本机 trust/peer 免密，数据库 `yyc3_music`
+- 确认 NAS `musai` 栈（backend/frontend/mysql/redis）为另一套并行服务，本项目目标保持 `yyc3-music`（PG15）
+- 记录管理后台原型 `Dashboard.vue.bak` 的缺陷：`this..push` 语法错误、缺少 3 个组件、无样式与接口
+
+### 变更
+
+- `.env.example` 的 `PGUSER` 更新为 `yanyu`，本机 `PGPASSWORD` 留空
+
+---
+
 ## [1.1.1] - 2026-11-07
 
 ### 文档
