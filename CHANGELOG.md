@@ -16,6 +16,27 @@
 
 ---
 
+## [1.1.1] - 2026-11-07
+
+### 文档
+
+- 16 篇设计规划文档统一命名，补齐 `audience` / `complexity` / `project` / `phase` 字段，编入 01/02/03 阶段目录
+- 删除 17 篇冗余或与音乐项目无关的历史文档（MCP 指南、旧总结、旧测试页等），治理决策在 [docs/README.md](docs/README.md) 留痕
+- 架构、环境、部署、测试、安全文档同步 PostgreSQL 15 数据源决策
+- 统一修正 `Mucis` 拼写为 `Music`，标题与 H1 对齐
+
+### 变更
+
+- 数据源正式确定为 **PostgreSQL 15**：本地 `yyc3_music:5433`，NAS Docker `yyc3-music`，音乐 API 通道 `ssh yyc3-45`
+- `.env.example` 增加 `PGHOST` / `PGPORT` / `PGDATABASE` / `PGUSER` / `PGPASSWORD`，MongoDB / SQLite 标记为遗留
+
+### 基础设施
+
+- 初始化 Git 仓库并建立基线提交 `116344b`
+- `.gitignore` 增加依赖、构建产物、日志、Python 缓存与 macOS 文件
+
+---
+
 ## [1.1.0] - 2026-11-07
 
 ### 新增
