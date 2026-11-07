@@ -15,7 +15,7 @@
 
 <p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-8A2BE2?style=flat-square" alt="License"></a>
-  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.2.0-FF6B6B?style=flat-square" alt="Version"></a>
+  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.3.0-FF6B6B?style=flat-square" alt="Version"></a>
   <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-%3E%3D18-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
   <a href="https://react.dev/"><img src="https://img.shields.io/badge/react-18.2-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React"></a>
   <a href="https://expressjs.com/"><img src="https://img.shields.io/badge/express-4.18-000000?style=flat-square&logo=express&logoColor=white" alt="Express"></a>
@@ -151,6 +151,17 @@ npm run dev
 > 管理后台开发默认账号：`admin` / `m98-admin-dev`，生产必须通过 `ADMIN_USERNAME` / `ADMIN_PASSWORD` 覆盖。
 
 > 数据源已确认迁移至 **PostgreSQL 15**（`yyc3_music` / NAS `yyc3-music`），连接参数见 [开发环境指南](./docs/03-YYC3-项目开发-实施阶段/0302-YYC3-项目开发-开发环境指南.md)；音乐 API 远程通道为 `ssh yyc3-45`。
+
+### 数据库迁移
+
+```bash
+cd api_service
+npm run pg:migrate     # 建立 m98 schema 与表结构
+npm run pg:import      # SQLite → PostgreSQL 幂等导入
+npm run pg:verify      # 行数与播放量校验
+```
+
+> 环境变量见 [0502-环境变量手册](./docs/05-YYC3-项目部署-文档闭环/0502-YYC3-项目部署-环境变量手册.md)，迁移细节见 [0503-PostgreSQL 适配与迁移指南](./docs/05-YYC3-项目部署-文档闭环/0503-YYC3-项目部署-PostgreSQL适配与迁移指南.md)。
 
 ### 一键脚本
 

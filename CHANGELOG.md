@@ -16,6 +16,30 @@
 
 ---
 
+## [1.3.0] - 2026-11-07
+
+### 新增
+
+- 完整环境变量手册 `0502`：API、Web、Admin、迁移脚本与容器变量
+- `api_service/.env.example`、`web_app/.env.example`、`admin_panel/.env.example`
+- PostgreSQL 适配层：`m98` schema、7 张表、索引与 `updated_at` 触发器
+- 迁移脚本：`pg:migrate`、`pg:import`（SQLite → PG 幂等导入）、`pg:verify`
+- `api_service` 新增 `pg` 驱动与 `start:sqlite` 脚本
+
+### 变更
+
+- Web 前端支持 `REACT_APP_API_BASE_URL`
+- 管理后台 `vite.config.ts` 使用 `loadEnv` 读取 `VITE_PROXY_TARGET`
+- PostgreSQL 迁移指南 `0503`，记录实测结果与回滚方案
+
+### 数据
+
+- `m98.artists` 1 / `m98.releases` 3 / `m98.fan_messages` 3
+- 总播放量校验 `202663 = 202663`
+- `public` 既有 165 首 musics、14 张 albums 未改动
+
+---
+
 ## [1.2.0] - 2026-11-07
 
 ### 新增
