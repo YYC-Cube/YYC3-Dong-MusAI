@@ -15,7 +15,7 @@
 
 <p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-8A2BE2?style=flat-square" alt="License"></a>
-  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.1.2-FF6B6B?style=flat-square" alt="Version"></a>
+  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.2.0-FF6B6B?style=flat-square" alt="Version"></a>
   <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-%3E%3D18-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
   <a href="https://react.dev/"><img src="https://img.shields.io/badge/react-18.2-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React"></a>
   <a href="https://expressjs.com/"><img src="https://img.shields.io/badge/express-4.18-000000?style=flat-square&logo=express&logoColor=white" alt="Express"></a>
@@ -44,7 +44,7 @@
 | 项目名 | M98 董小姐音乐宇宙（M98_DongXiaoJie） |
 | 艺人 | 董小姐（艺名 M98） |
 | 定位 | 音乐人官网 + 粉丝社区 + 数据洞察 + AI 创作展示 |
-| 技术栈 | React 18 · Express 4 · PostgreSQL 15 · Docker |
+| 技术栈 | React 18 · Vue 3 · Express 4 · PostgreSQL 15 · Docker |
 | 数据源 | 主库 `yyc3_music`（PG15，`yanyu@localhost:5433` 本机免密，NAS Docker `yyc3-music`） |
 | 当前阶段 | 演示级可用，工程化推进中 |
 | 品牌主色 | `#8A2BE2` 紫罗兰 × `#FF6B6B` 珊瑚红 × `#0D1117` 深空黑 |
@@ -65,7 +65,7 @@
 | 虚拟演出 | VR / 直播 / 音乐节 | 🟡 |
 | 数据看板 | 听众、播放、收入示意 | 🟡 |
 | 社交聚合 | 微博 / 抖音 / B站 / 小红书 | 🟡 |
-| 管理后台 | 内容发布与运营 | ⬜ 规划中 |
+| 管理后台 | 登录、JWT 鉴权、总览看板（Vue 3 + Vite + TS） | 🟡 MVP |
 | 移动端 | iOS / Android | ⬜ 规划中 |
 | AI 创作 | 歌词 / 旋律生成 | 🟡 展示层 |
 | 天气 MCP | Python FastMCP 助手 | ✅ 独立 |
@@ -102,7 +102,7 @@ M-DongXiaoJie/
 ├── api_service/      Express API（Mongo / SQLite / Mock）
 ├── content_db/       开发数据库与种子数据
 ├── database/         运行期 SQLite
-├── admin_panel/      管理后台（规划中）
+├── admin_panel/      Vue 3 管理后台（登录 + 总览 MVP）
 ├── mobile_app/       移动端（规划中）
 ├── marketing_tools/  营销自动化（规划中）
 ├── weather/          Python MCP 天气助手
@@ -135,12 +135,20 @@ cd web_app
 npm install
 npm start
 
-# 3. 访问
+# 3. 管理后台（另开终端）
+cd admin_panel
+npm install
+npm run dev
+
+# 4. 访问
 # Web       http://localhost:3000
+# Admin     http://localhost:3032
 # API       http://localhost:4000
 # API Docs  http://localhost:4000/docs
 # Health    http://localhost:4000/health
 ```
+
+> 管理后台开发默认账号：`admin` / `m98-admin-dev`，生产必须通过 `ADMIN_USERNAME` / `ADMIN_PASSWORD` 覆盖。
 
 > 数据源已确认迁移至 **PostgreSQL 15**（`yyc3_music` / NAS `yyc3-music`），连接参数见 [开发环境指南](./docs/03-YYC3-项目开发-实施阶段/0302-YYC3-项目开发-开发环境指南.md)；音乐 API 远程通道为 `ssh yyc3-45`。
 

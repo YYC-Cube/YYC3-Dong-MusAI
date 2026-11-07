@@ -36,3 +36,7 @@ web_app/public/D-poster/
 web_app/public/D-MusAI.png
 web_app/public/D-music.png
 web_app/public/music.png
+
+# Admin panel generated asset copies (source of truth: /public)
+admin_panel/public/D-Music-icons/
+admin_panel/public/D-MusAI.png

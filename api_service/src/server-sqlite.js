@@ -296,6 +296,10 @@ app.post('/api/music/:id/play', (req, res) => {
   });
 });
 
+// 管理后台鉴权与数据
+app.use('/api/auth', require('./routes/authRoutes')());
+app.use('/api/admin', require('./routes/adminRoutes')(db));
+
 // 404处理
 app.use('*', (req, res) => {
   res.status(404).json({ message: '接口不存在' });

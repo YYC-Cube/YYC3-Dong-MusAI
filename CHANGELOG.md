@@ -16,6 +16,27 @@
 
 ---
 
+## [1.2.0] - 2026-11-07
+
+### 新增
+
+- 新建 `admin_panel/`：Vue 3 + Vite 7 + TypeScript 管理后台
+- `Dashboard.vue` 迁移并修复：`StatCard`、`LineChart`、`ActivityFeed` 三个组件与暗色响应式主题
+- 登录页、Pinia 鉴权 Store、路由守卫、Axios Token 拦截器与 401 自动登出
+- 后端新增 `POST /api/auth/login`、`GET /api/auth/me`、`GET /api/admin/dashboard`（JWT 保护）
+- 新增 7 个后端测试（鉴权 5 + 仪表盘 2），测试总数 14
+
+### 变更
+
+- 删除根目录 `Dashboard.vue.bak`，正式迁移至 `admin_panel/src/views/Dashboard.vue`
+- 管理后台开发端口 3032，构建产物 173 KB JS / 14.4 KB CSS
+
+### 安全
+
+- 开发默认账号 `admin` / `m98-admin-dev`；生产必须注入 `ADMIN_USERNAME` / `ADMIN_PASSWORD` / `JWT_SECRET`
+
+---
+
 ## [1.1.2] - 2026-11-07
 
 ### 文档
