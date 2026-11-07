@@ -60,7 +60,6 @@ const swaggerOptions = {
   apis: [
     './src/routes/pg/*.js',
     './src/routes/authRoutes.js',
-    './src/routes/contentRoutes.js',
   ],
 };
 
@@ -93,7 +92,7 @@ app.get('/health', async (req, res) => {
 app.use('/api/artist', require('./routes/pg/artistRoutes'));
 app.use('/api/music', require('./routes/pg/musicRoutes'));
 app.use('/api/fans', require('./routes/pg/fanRoutes'));
-app.use('/api/content', require('./routes/contentRoutes'));
+app.use('/api/content', require('./routes/pg/contentRoutes'));
 app.use('/api/auth', require('./routes/authRoutes')());
 app.use('/api/admin', require('./routes/pg/adminRoutes'));
 

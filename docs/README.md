@@ -3,7 +3,7 @@ file: README.md
 title: M98 董小姐音乐宇宙 — 文档目录索引
 description: M98 项目文档总索引 — 十二阶段分类、标规对齐、追溯关系与遗留文档归档
 author: YYC³ Team <admin@0379.email>
-version: v1.1.2
+version: v1.1.3
 created: 2026-11-07
 updated: 2026-11-07
 status: stable
@@ -247,6 +247,7 @@ docs/
 
 | 版本 | 日期 | 变更内容 | 作者 |
 | ---- | ---- | -------- | ---- |
+| v1.1.3 | 2026-11-07 | 内容接口切换 PG 并建立 PG 测试库 | YYC³ Team |
 | v1.1.2 | 2026-11-07 | 记录 PostgreSQL 查询层与默认入口切换 | YYC³ Team |
 | v1.1.1 | 2026-11-07 | 新增 0502 环境变量手册、0503 PostgreSQL 适配与迁移指南 | YYC³ Team |
 | v1.1.0 | 2026-11-07 | 新增 16 篇设计规划文档并完成分类迁移；删除 17 篇冗余/无关文档；记录治理决策 | YYC³ Team |

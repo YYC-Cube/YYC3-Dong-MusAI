@@ -3,7 +3,7 @@ file: 0503-YYC3-项目部署-PostgreSQL适配与迁移指南.md
 title: M98 董小姐音乐宇宙 — PostgreSQL 适配与迁移指南
 description: PostgreSQL 适配层 — m98 schema、迁移脚本、数据导入、校验与回滚
 author: YYC³ Team <admin@0379.email>
-version: v1.1.0
+version: v1.1.1
 created: 2026-11-07
 updated: 2026-11-07
 status: stable
@@ -160,6 +160,18 @@ npm run pg:import
 [pg:import] 完成：artists=1 releases=3 fan_messages=3
 ```
 
+内容种子：
+
+```bash
+npm run pg:seed:content
+```
+
+预期：
+
+```text
+[pg:seed:content] 完成：exclusive_content=4 blog_posts=2 events=3
+```
+
 ### 5.5 校验
 
 ```bash
@@ -193,6 +205,8 @@ npm run pg:verify
 | PG 边界校验 | ✅ `limit=abc/0/101`、`page=0`、`type=bad` 全部 400 |
 | PG 写接口 | ✅ 播放计数 `45233 → 45234`（测试后已复位） |
 | PG 鉴权 / 仪表盘 | ✅ 无 Token 401；带 Token 200 |
+| 内容种子 | ✅ exclusive_content 4 / blog_posts 2 / events 3 |
+| 测试库 | ✅ `yyc3_music_test`，2 suites / 17 tests 通过 |
 
 ```text
 m98.artists           1
@@ -242,8 +256,10 @@ COMMIT;
 | `api_service/src/repositories/musicRepository.js` | 作品列表、精选、最新、播放计数 |
 | `api_service/src/repositories/fanRepository.js` | 留言墙、留言数、粉丝画像 |
 | `api_service/src/repositories/adminRepository.js` | 仪表盘 KPI、播放分布、最近活动 |
+| `api_service/src/repositories/contentRepository.js` | 独家内容、博客、活动 |
 | `api_service/src/routes/pg/*` | PG 路由层，保持原接口契约 |
 | `api_service/src/server-postgres.js` | 默认入口 `npm start` |
+| `api_service/tests/pgApi.test.js` | PG 集成测试（测试库 `yyc3_music_test`） |
 
 **入口切换**
 
@@ -255,10 +271,10 @@ COMMIT;
 
 **后续待办**
 
-1. 用 PostgreSQL 测试库（`yyc3_music_test`）或 Testcontainers 替换 Mongo 测试依赖。
-2. 将 `contentRoutes.js` 从静态数据切换为 `exclusive_content` / `blog_posts` / `events` 查询。
-3. 下线 Mongo / SQLite / Mock 入口与对应路由。
-4. 为 `npm audit` 高危依赖建立升级窗口。
+1. 前端内容组件切换为 `/api/content/*` 数据（当前仍部分使用本地静态数据）。
+2. 下线 Mongo / SQLite / Mock 入口与对应路由。
+3. 为 `npm audit` 高危依赖建立升级窗口。
+4. 增加内容写入与管理端 CRUD 的 PG 集成测试。
 
 **接口契约保持不变**，前端与管理后台无需改动。
 
@@ -272,7 +288,7 @@ COMMIT;
 | 幂等 | 迁移与导入均可重复执行 |
 | 事务 | 每个迁移文件在独立事务中执行，失败自动回滚 |
 | 密码 | 本机 `yanyu` 免密；NAS/远程必须注入 `PGPASSWORD` 并启用 `PGSSL` |
-| 内容表 | `exclusive_content` / `blog_posts` / `events` 暂无 SQLite 数据源，当前为空表 |
+| 内容表 | 已通过 `pg:seed:content` 写入 4 / 2 / 3 条，脚本可重复执行 |
 | 序列 | 导入后已通过 `setval` 对齐 `BIGSERIAL`，可继续自增 |
 | 回滚备份 | 生产回滚前执行 `pg_dump -n m98` |
 | 入口切换 | `npm start` 已指向 PG；SQLite / Mongo 仅用于遗留对照 |
@@ -283,6 +299,7 @@ COMMIT;
 
 | 版本 | 日期 | 变更内容 | 作者 |
 | ---- | ---- | -------- | ---- |
+| v1.1.1 | 2026-11-07 | 内容查询与 PG 测试库落地 | YYC³ Team |
 | v1.1.0 | 2026-11-07 | 查询层接入与入口切换完成 | YYC³ Team |
 | v1.0.0 | 2026-11-07 | 建立 PostgreSQL 适配与迁移指南：m98 schema、迁移/导入/校验脚本、实测结果与回滚方案 | YYC³ Team |
 

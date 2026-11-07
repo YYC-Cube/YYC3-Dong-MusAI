@@ -16,6 +16,29 @@
 
 ---
 
+## [1.5.0] - 2026-11-07
+
+### 新增
+
+- `contentRepository.js` 与 `routes/pg/contentRoutes.js`：独家内容、博客、活动改为 PG 查询
+- `pg:seed:content` 内容种子脚本，幂等写入 4 / 2 / 3 条
+- PostgreSQL 测试库 `yyc3_music_test` 与 `test:pg:setup`
+- 新增 PG API 集成测试 `tests/pgApi.test.js`（12 个用例）
+
+### 变更
+
+- `npm test` 改为 `jest --runInBand`，全部走 PG 测试库
+- 移除 `artistRoutes.test.js`、`musicRoutes.test.js`、`adminRoutes.test.js` 三个 Mongo/SQLite 测试文件
+- Swagger 内容接口切换至 `routes/pg/contentRoutes.js`
+
+### 验证
+
+- `/api/content/exclusive` 4 条、`/blog` 2 条、`/events` 3 条
+- 内容日期与资产路径正确
+- 测试总数 17（PG API 12 + Auth 5），全部通过
+
+---
+
 ## [1.4.0] - 2026-11-07
 
 ### 新增

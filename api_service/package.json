@@ -9,9 +9,11 @@
     "start:sqlite": "node src/server-sqlite.js",
     "start:mongo": "node src/server.js",
     "dev": "nodemon src/server-postgres.js",
-    "test": "jest",
+    "test": "jest --runInBand",
+    "test:pg:setup": "node scripts/pg-test-db.js",
     "pg:migrate": "node scripts/pg-migrate.js",
     "pg:import": "node scripts/pg-import-sqlite.js",
+    "pg:seed:content": "node scripts/pg-seed-content.js",
     "pg:verify": "node scripts/pg-verify.js"
   },
   "dependencies": {
