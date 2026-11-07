@@ -44,7 +44,8 @@
 | 项目名 | M98 董小姐音乐宇宙（M98_DongXiaoJie） |
 | 艺人 | 董小姐（艺名 M98） |
 | 定位 | 音乐人官网 + 粉丝社区 + 数据洞察 + AI 创作展示 |
-| 技术栈 | React 18 · Express 4 · MongoDB / SQLite · Docker |
+| 技术栈 | React 18 · Express 4 · PostgreSQL 15 · Docker |
+| 数据源 | 主库 `yyc3_music`（PG15，本地 `5433`，NAS Docker `yyc3-music`） |
 | 当前阶段 | 演示级可用，工程化推进中 |
 | 品牌主色 | `#8A2BE2` 紫罗兰 × `#FF6B6B` 珊瑚红 × `#0D1117` 深空黑 |
 
@@ -85,7 +86,7 @@
 │   /api/artist  /api/music  /api/fans  /api/content            │
 │   helmet · cors · rate-limit · swagger                        │
 ├──────────────────────────────────────────────────────────────┤
-│   数据访问：Mongoose → MongoDB ｜ sqlite3 → SQLite ｜ Mock     │
+│   数据访问：PostgreSQL 15（目标）｜ MongoDB / SQLite（遗留）   │
 └───────────────────────────┬──────────────────────────────────┘
                             │
 ┌───────────────────────────▼──────────────────────────────────┐
@@ -119,12 +120,12 @@ M-DongXiaoJie/
 
 - Node.js ≥ 18（推荐 20 / 22 LTS）
 - npm ≥ 9
-- MongoDB ≥ 6 或 SQLite 3（二选一）
+- PostgreSQL 15（`yyc3_music`，端口 `5433`；NAS Docker `yyc3-music`）
 
 ### 启动
 
 ```bash
-# 1. 后端（本地推荐 SQLite）
+# 1. 后端（当前为 SQLite 演示入口，PG 适配层待落地）
 cd api_service
 npm install
 node src/server-sqlite.js
@@ -140,6 +141,8 @@ npm start
 # API Docs  http://localhost:4000/docs
 # Health    http://localhost:4000/health
 ```
+
+> 数据源已确认迁移至 **PostgreSQL 15**（`yyc3_music` / NAS `yyc3-music`），连接参数见 [开发环境指南](./docs/03-YYC3-项目开发-实施阶段/0302-YYC3-项目开发-开发环境指南.md)；音乐 API 远程通道为 `ssh yyc3-45`。
 
 ### 一键脚本
 
