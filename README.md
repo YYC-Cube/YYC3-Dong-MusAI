@@ -15,7 +15,7 @@
 
 <p align="center">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-8A2BE2?style=flat-square" alt="License"></a>
-  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.3.0-FF6B6B?style=flat-square" alt="Version"></a>
+  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.4.0-FF6B6B?style=flat-square" alt="Version"></a>
   <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-%3E%3D18-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
   <a href="https://react.dev/"><img src="https://img.shields.io/badge/react-18.2-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React"></a>
   <a href="https://expressjs.com/"><img src="https://img.shields.io/badge/express-4.18-000000?style=flat-square&logo=express&logoColor=white" alt="Express"></a>
@@ -99,7 +99,7 @@
 ```text
 M-DongXiaoJie/
 ├── web_app/          React 18 粉丝网站
-├── api_service/      Express API（Mongo / SQLite / Mock）
+├── api_service/      Express API（PostgreSQL 主入口 + 遗留入口）
 ├── content_db/       开发数据库与种子数据
 ├── database/         运行期 SQLite
 ├── admin_panel/      Vue 3 管理后台（登录 + 总览 MVP）
@@ -125,10 +125,12 @@ M-DongXiaoJie/
 ### 启动
 
 ```bash
-# 1. 后端（当前为 SQLite 演示入口，PG 适配层待落地）
+# 1. 后端（PostgreSQL 默认入口）
 cd api_service
 npm install
-node src/server-sqlite.js
+npm run pg:migrate
+npm run pg:import
+npm start
 
 # 2. 前端（另开终端）
 cd web_app
@@ -149,6 +151,8 @@ npm run dev
 ```
 
 > 管理后台开发默认账号：`admin` / `m98-admin-dev`，生产必须通过 `ADMIN_USERNAME` / `ADMIN_PASSWORD` 覆盖。
+>
+> 遗留入口：`npm run start:sqlite`、`npm run start:mongo`，仅用于对照，不再新增功能。
 
 > 数据源已确认迁移至 **PostgreSQL 15**（`yyc3_music` / NAS `yyc3-music`），连接参数见 [开发环境指南](./docs/03-YYC3-项目开发-实施阶段/0302-YYC3-项目开发-开发环境指南.md)；音乐 API 远程通道为 `ssh yyc3-45`。
 

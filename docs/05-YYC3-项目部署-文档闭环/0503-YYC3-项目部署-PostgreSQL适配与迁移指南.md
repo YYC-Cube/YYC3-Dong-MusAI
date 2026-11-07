@@ -3,7 +3,7 @@ file: 0503-YYC3-项目部署-PostgreSQL适配与迁移指南.md
 title: M98 董小姐音乐宇宙 — PostgreSQL 适配与迁移指南
 description: PostgreSQL 适配层 — m98 schema、迁移脚本、数据导入、校验与回滚
 author: YYC³ Team <admin@0379.email>
-version: v1.0.0
+version: v1.1.0
 created: 2026-11-07
 updated: 2026-11-07
 status: stable
@@ -188,6 +188,11 @@ npm run pg:verify
 | 行数校验 | ✅ 全部一致 |
 | 总播放量校验 | ✅ `202663 = 202663` |
 | `public` 既有数据 | ✅ 未改动（musics 165 / albums 14） |
+| PG API 启动 | ✅ `npm start` → `/health` 200，schema=m98 |
+| PG 读接口 | ✅ 10 个端点全部 200 |
+| PG 边界校验 | ✅ `limit=abc/0/101`、`page=0`、`type=bad` 全部 400 |
+| PG 写接口 | ✅ 播放计数 `45233 → 45234`（测试后已复位） |
+| PG 鉴权 / 仪表盘 | ✅ 无 Token 401；带 Token 200 |
 
 ```text
 m98.artists           1
@@ -226,16 +231,34 @@ COMMIT;
 
 ---
 
-## 八、适配层接入建议
+## 八、适配层接入现状
 
-当前完成的是“**结构 + 数据 + 校验**”，API 仍走 SQLite 过渡入口。下一步建议：
+已完成 **结构 + 数据 + 查询层 + 入口切换**：
 
-1. 新增 `api_service/src/db/postgres.js`：`Pool` 连接、`search_path=m98,public`、健康检查。
-2. 新增 `api_service/src/repositories/*`：artist / music / fan / content 查询。
-3. 新增 `src/server-postgres.js`：复用现有路由契约，替换数据访问层。
-4. 将 `adminRoutes.js` 的 SQLite 查询替换为 repository 调用。
-5. 增加 PG 集成测试（Testcontainers 或独立 `yyc3_music_test` 库）。
-6. 切换完成后，冻结并最终移除 Mongo / SQLite / Mock 入口。
+| 文件 | 职责 |
+| ---- | ---- |
+| `api_service/src/db/postgres.js` | 连接池、`search_path=m98,public`、健康检查 |
+| `api_service/src/repositories/artistRepository.js` | 艺人资料、统计、最新动态 |
+| `api_service/src/repositories/musicRepository.js` | 作品列表、精选、最新、播放计数 |
+| `api_service/src/repositories/fanRepository.js` | 留言墙、留言数、粉丝画像 |
+| `api_service/src/repositories/adminRepository.js` | 仪表盘 KPI、播放分布、最近活动 |
+| `api_service/src/routes/pg/*` | PG 路由层，保持原接口契约 |
+| `api_service/src/server-postgres.js` | 默认入口 `npm start` |
+
+**入口切换**
+
+| 命令 | 入口 | 数据库 |
+| ---- | ---- | ------ |
+| `npm start` / `npm run start:postgres` | `server-postgres.js` | PostgreSQL 15 |
+| `npm run start:sqlite` | `server-sqlite.js` | SQLite（遗留） |
+| `npm run start:mongo` | `server.js` | MongoDB（遗留） |
+
+**后续待办**
+
+1. 用 PostgreSQL 测试库（`yyc3_music_test`）或 Testcontainers 替换 Mongo 测试依赖。
+2. 将 `contentRoutes.js` 从静态数据切换为 `exclusive_content` / `blog_posts` / `events` 查询。
+3. 下线 Mongo / SQLite / Mock 入口与对应路由。
+4. 为 `npm audit` 高危依赖建立升级窗口。
 
 **接口契约保持不变**，前端与管理后台无需改动。
 
@@ -252,6 +275,7 @@ COMMIT;
 | 内容表 | `exclusive_content` / `blog_posts` / `events` 暂无 SQLite 数据源，当前为空表 |
 | 序列 | 导入后已通过 `setval` 对齐 `BIGSERIAL`，可继续自增 |
 | 回滚备份 | 生产回滚前执行 `pg_dump -n m98` |
+| 入口切换 | `npm start` 已指向 PG；SQLite / Mongo 仅用于遗留对照 |
 
 ---
 
@@ -259,6 +283,7 @@ COMMIT;
 
 | 版本 | 日期 | 变更内容 | 作者 |
 | ---- | ---- | -------- | ---- |
+| v1.1.0 | 2026-11-07 | 查询层接入与入口切换完成 | YYC³ Team |
 | v1.0.0 | 2026-11-07 | 建立 PostgreSQL 适配与迁移指南：m98 schema、迁移/导入/校验脚本、实测结果与回滚方案 | YYC³ Team |
 
 ---

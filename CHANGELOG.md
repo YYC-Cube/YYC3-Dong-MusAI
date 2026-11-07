@@ -16,6 +16,29 @@
 
 ---
 
+## [1.4.0] - 2026-11-07
+
+### 新增
+
+- PostgreSQL 查询层：`db/postgres.js`、`repositories/*`、`routes/pg/*`
+- `server-postgres.js` 默认入口，`npm start` / `npm run dev` 已切换
+- 列表接口参数校验：`limit/page/type` 非法统一返回 400
+
+### 变更
+
+- `docker-compose.yml` 切换 PostgreSQL 15，移除 Mongo、Redis 与不存在的 AI 服务
+- SQLite / Mongo 入口保留为 `start:sqlite` / `start:mongo`，标记为遗留
+
+### 验证
+
+- 10 个读接口全部 200
+- 写接口播放计数 +1，测试后已通过 `pg:import` 复位
+- 边界参数全部 400
+- 登录与受保护仪表盘 401 / 200 正常
+- `public` 既有 165 首 musics、14 张 albums 未改动
+
+---
+
 ## [1.3.0] - 2026-11-07
 
 ### 新增

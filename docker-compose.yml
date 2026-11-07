@@ -5,42 +5,57 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - API_BASE_URL=http://api:4000
+      - REACT_APP_API_BASE_URL=http://localhost:4000
     depends_on:
       - api
 
-  # 主API服务
+  # 主 API 服务（PostgreSQL 15）
   api:
     build: ./api_service
     ports:
       - "4000:4000"
     environment:
-      - DB_HOST=db
-      - DB_PORT=27017
-      - REDIS_HOST=redis
+      - NODE_ENV=production
+      - PGHOST=db
+      - PGPORT=5432
+      - PGDATABASE=yyc3_music
+      - PGUSER=yanyu
+      - PGPASSWORD=${PG_PASSWORD:?PG_PASSWORD is required}
+      - PGSCHEMA=m98
+      - FRONTEND_URL=http://localhost:3000
+      - JWT_SECRET=${JWT_SECRET:?JWT_SECRET is required}
+      - JWT_EXPIRES_IN=8h
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:?ADMIN_PASSWORD is required}
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
-  # AI服务
-  ai-lyrics:
-    build: ./ai_services/lyrics_generator
-    ports:
-      - "5001:5000"
-
-  # 数据库
+  # 主数据库 PostgreSQL 15
   db:
-    image: mongo:5.0
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=yyc3_music
+      - POSTGRES_USER=yanyu
+      - POSTGRES_PASSWORD=${PG_PASSWORD:?PG_PASSWORD is required}
+    ports:
+      - "5433:5432"
     volumes:
-      - mongodb_data:/data/db
-    ports:
-      - "27017:27017"
-
-  # Redis缓存
-  redis:
-    image: redis:6-alpine
-    ports:
-      - "6379:6379"
+      - pg_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yanyu -d yyc3_music"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 volumes:
-  mongodb_data:
+  pg_data:
