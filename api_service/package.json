@@ -23,7 +23,7 @@
     "jsonwebtoken": "^9.0.0",
     "pg": "^8.23.1",
     "sqlite3": "^5.1.7",
-    "swagger-jsdoc": "^6.2.8",
+    "swagger-jsdoc": "^6.3.0",
     "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
