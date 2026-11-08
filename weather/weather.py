@@ -9,10 +9,10 @@ import json
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 # 创建 MCP 服务器实例
-mcp = FastMCP("M98 Weather Service")
+mcp = MCPServer("M98 Weather Service")
 
 # 模拟天气数据（在实际应用中会连接真实的天气API）
 WEATHER_DATA = {

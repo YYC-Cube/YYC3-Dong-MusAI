@@ -115,7 +115,7 @@
 | 管理后台 | 登录、JWT 鉴权、总览看板（Vue 3.5 + Vite 8 + TS 5.9） | 🟡 MVP |
 | 移动端 | iOS / Android | ⬜ 规划中 |
 | AI 创作 | 歌词 / 旋律生成 | 🟡 展示层 |
-| 天气 MCP | Python FastMCP 助手 | ✅ 独立 |
+| 天气 MCP | Python MCP 2.x 助手 | ✅ 独立 |
 
 ---
 

@@ -33,6 +33,7 @@
 - `web_app`：Jest → Vitest 5 + jsdom 31，环境变量 `REACT_APP_*` → `VITE_*`
 - `api_service`：Express 4 → 5.3、helmet 8、express-rate-limit 8、dotenv 18、sqlite3 6、Jest 30
 - `admin_panel`：Vue 3.5、Pinia 4、Vue Router 5、Vite 8、vue-tsc 3.3；TypeScript 固定 5.9（TS 7 与 vue-tsc 暂不兼容）
+- `weather`：MCP 1.10 → 2.3，`FastMCP` → `MCPServer` 迁移，清理 Python 依赖告警
 - CI：Node 20 → 22，前端测试切换为 Vitest；Pages 构建同步升级
 
 ### 修复

@@ -4,10 +4,10 @@ MCP 在不同开发领域的应用示例
 """
 
 import asyncio
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 # 创建通用开发 MCP 服务器
-universal_mcp = FastMCP("Universal Development Assistant")
+universal_mcp = MCPServer("Universal Development Assistant")
 
 # ===== WEB 开发 =====
 @universal_mcp.tool()

@@ -12,10 +12,10 @@ from datetime import datetime
 from typing import Dict, List, Optional
 from pathlib import Path
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 # 创建 MCP 服务器实例
-app = FastMCP("M98 Development Assistant")
+app = MCPServer("M98 Development Assistant")
 
 # 数据库路径
 DB_PATH = "/Users/yanyu/D-98/M98_DongXiaoJie/content_db/m98_dev.db"
