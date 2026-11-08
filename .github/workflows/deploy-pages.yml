@@ -63,7 +63,7 @@ jobs:
           echo '[pages] build/CNAME 校验通过'
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: web_app/build
 
