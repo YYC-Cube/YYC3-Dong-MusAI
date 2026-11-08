@@ -224,11 +224,9 @@ const FanInteractionHub = () => {
   const [selectedEmotions, setSelectedEmotions] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
-  const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
     loadFeedbacks();
-    loadTracks();
   }, []);
 
   const loadFeedbacks = async () => {
@@ -243,15 +241,6 @@ const FanInteractionHub = () => {
     } catch (error) {
       console.warn('粉丝反馈 API 不可达，使用本地静态数据:', error.message);
       setFeedbacks(FALLBACK_FEEDBACKS);
-    }
-  };
-
-  const loadTracks = async () => {
-    try {
-      const response = await apiService.getLatestReleases();
-      setTracks(response.data || []);
-    } catch (error) {
-      console.error('加载音乐列表失败:', error);
     }
   };
 
