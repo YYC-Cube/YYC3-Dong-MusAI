@@ -36,6 +36,12 @@
 - `.gitignore` 排除生成的 `web_app/public/CNAME`，保持根 `public/CNAME` 为唯一事实源
 - 文档索引与仓库关键词同步：移除过期 `sqlite/mongodb` 标签，增加 `postgresql/github-pages/ci-cd`
 
+### 修复
+
+- Pages 站点在未配置 `REACT_APP_API_BASE_URL` 或 API 不可达时进入错误页：新增本地静态回退数据 `fallbackData.js`
+- Jest 环境缺少 Canvas 2D 上下文导致测试中断：`DynamicBackground` 增加上下文守卫
+- 前端测试缺少 jest-dom 初始化与 axios ESM 转换配置：新增 `setupTests.js` 与 Jest `transformIgnorePatterns`
+
 ### 验证
 
 - `CI=true npm run build` 前端生产构建通过

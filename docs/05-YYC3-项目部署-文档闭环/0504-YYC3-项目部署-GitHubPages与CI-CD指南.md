@@ -94,7 +94,18 @@ D-MusAI.png  D-music.png  music.png  CNAME
 
 > `.gitignore` 已排除生成的 `web_app/public/CNAME`，避免与根 `public/CNAME` 产生双事实源。
 
-### 3.2 部署工作流
+### 3.2 API 不可达时的静态回退
+
+Pages 静态站点可能无法访问 `api_service`。前端按以下策略保证可用性：
+
+| 场景 | 行为 |
+| ---- | ---- |
+| 生产构建未设置 `REACT_APP_API_BASE_URL` | 直接使用 `web_app/src/config/fallbackData.js` 本地静态数据 |
+| 已设置 API 地址但请求失败 | 捕获异常后回退本地静态数据，页面不进入错误屏 |
+| 测试环境（`NODE_ENV=test`） | 默认使用本地静态数据，避免真实网络请求 |
+| 开发环境 | 优先请求 `http://localhost:4000`，失败时回退 |
+
+### 3.3 部署工作流
 
 [`deploy-pages.yml`](../../.github/workflows/deploy-pages.yml) 关键步骤：
 

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import apiService from '../services/apiService';
 import ASSETS, { resolveCover } from '../config/assets';
+import { FALLBACK_ARTIST, FALLBACK_RELEASES, FALLBACK_FANS_WALL } from '../config/fallbackData';
 import DynamicBackground from '../components/advanced/DynamicBackground';
 import AdvancedMusicPlayer from '../components/advanced/AdvancedMusicPlayer';
 import FanInteractionHub from '../components/advanced/FanInteractionHub';
@@ -12,6 +13,11 @@ import AICreationShowcase from '../components/advanced/AICreationShowcase';
 import MusicDataAnalytics from '../components/advanced/MusicDataAnalytics';
 import ExclusiveContent from '../components/social/ExclusiveContent';
 import ContentFeed from '../components/social/ContentFeed';
+
+// 生产/测试环境未配置 API 地址时直接使用本地静态数据，避免 Pages 站点进入错误页
+const PREFER_LOCAL_FALLBACK =
+  !process.env.REACT_APP_API_BASE_URL &&
+  ['production', 'test'].includes(process.env.NODE_ENV);
 
 // 音乐可视化组件
 const MusicVisualizer = ({ isPlaying, trackData }) => {
@@ -420,10 +426,24 @@ const HomePage = () => {
   const [currentTrack, setCurrentTrack] = useState(ASSETS.tracks[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
+    const applyFallback = (reason) => {
+      if (reason) {
+        console.warn('⚠️ API 不可达，使用本地静态数据:', reason);
+      }
+      setArtistData(FALLBACK_ARTIST);
+      setReleases(FALLBACK_RELEASES);
+      setFansWall(FALLBACK_FANS_WALL);
+    };
+
     const fetchData = async () => {
+      if (PREFER_LOCAL_FALLBACK) {
+        applyFallback();
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
         
@@ -441,8 +461,7 @@ const HomePage = () => {
         setCurrentTrack(ASSETS.tracks[0]);
         
       } catch (err) {
-        console.error('❌ 数据加载失败:', err);
-        setError(err.message);
+        applyFallback(err.message);
       } finally {
         setLoading(false);
       }
@@ -469,10 +488,6 @@ const HomePage = () => {
 
   if (loading) {
     return <LoadingScreen />;
-  }
-
-  if (error) {
-    return <ErrorScreen error={error} />;
   }
 
   return (
@@ -1017,43 +1032,6 @@ const LoadingScreen = () => (
       />
       <h2>🎵 载入中...</h2>
       <p>正在进入董小姐的音乐宇宙</p>
-    </motion.div>
-  </div>
-);
-
-const ErrorScreen = ({ error }) => (
-  <div style={{
-    height: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: 'linear-gradient(135deg, #0D1117 0%, #161B22 50%, #0D1117 100%)',
-    color: 'white',
-    textAlign: 'center'
-  }}>
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-    >
-      <h2>❌ 连接失败</h2>
-      <p>无法连接到音乐服务: {error}</p>
-      <motion.button
-        onClick={() => window.location.reload()}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        style={{
-          background: 'linear-gradient(45deg, #8A2BE2, #FF6B6B)',
-          border: 'none',
-          color: 'white',
-          padding: '1rem 2rem',
-          borderRadius: '25px',
-          cursor: 'pointer',
-          fontSize: '1rem',
-          marginTop: '1rem'
-        }}
-      >
-        重新连接
-      </motion.button>
     </motion.div>
   </div>
 );

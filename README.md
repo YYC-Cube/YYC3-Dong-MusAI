@@ -77,6 +77,8 @@
 | 安全扫描 | [Actions · CodeQL](https://github.com/YYC-Cube/YYC3-Dong-MusAI/actions/workflows/codeql.yml) | JavaScript / TypeScript |
 
 > Pages 仅承载 `web_app` 静态前端；`api_service` 需独立部署，前端通过 `REACT_APP_API_BASE_URL` 指向 API 地址。
+>
+> 未配置 API 地址或 API 不可达时，首页自动回退到 [`web_app/src/config/fallbackData.js`](./web_app/src/config/fallbackData.js) 的本地静态数据，保证静态站点可独立浏览。
 
 ---
 

@@ -26,7 +26,11 @@ const DynamicBackground = ({ musicPlaying = false, intensity = 0.5 }) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    
+
+    // 无 Canvas 2D 上下文的环境（如 jsdom / 旧浏览器）直接跳过动画
+    if (!ctx) {
+      return undefined;
+    }
     // 设置画布大小
     const resize = () => {
       canvas.width = window.innerWidth;
