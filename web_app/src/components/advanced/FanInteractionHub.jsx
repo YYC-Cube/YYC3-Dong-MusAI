@@ -7,15 +7,16 @@ import { FALLBACK_FEEDBACKS, PREFER_LOCAL_FALLBACK } from '../../config/fallback
 const InteractionContainer = styled.div`
   background: var(--gradient-card);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-xl);
+  padding: clamp(1.25rem, 4vw, var(--spacing-xl));
   backdrop-filter: blur(10px);
   border: var(--border-primary);
-  margin: var(--spacing-xl) 0;
+  margin: var(--spacing-xl) auto;
+  max-width: 1300px;
 `;
 
 const SectionTitle = styled.h2`
   color: var(--text-primary);
-  font-size: var(--text-3xl);
+  font-size: clamp(1.8rem, 4vw, var(--text-3xl));
   font-weight: 600;
   margin-bottom: var(--spacing-lg);
   text-align: center;
@@ -45,6 +46,8 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
+  width: 100%;
+  max-width: 100%;
   background: rgba(22, 27, 34, 0.8);
   border: 1px solid rgba(139, 148, 158, 0.3);
   border-radius: var(--radius-md);
@@ -65,6 +68,8 @@ const Input = styled.input`
 `;
 
 const TextArea = styled.textarea`
+  width: 100%;
+  max-width: 100%;
   background: rgba(22, 27, 34, 0.8);
   border: 1px solid rgba(139, 148, 158, 0.3);
   border-radius: var(--radius-md);
@@ -117,9 +122,9 @@ const EmotionSelector = styled.div`
 `;
 
 const EmotionButton = styled(motion.button)`
-  background: ${props => props.selected ? 'var(--gradient-primary)' : 'rgba(22, 27, 34, 0.8)'};
-  color: ${props => props.selected ? 'white' : 'var(--text-secondary)'};
-  border: 1px solid ${props => props.selected ? 'transparent' : 'rgba(139, 148, 158, 0.3)'};
+  background: ${props => props.$selected ? 'var(--gradient-primary)' : 'rgba(22, 27, 34, 0.8)'};
+  color: ${props => props.$selected ? 'white' : 'var(--text-secondary)'};
+  border: 1px solid ${props => props.$selected ? 'transparent' : 'rgba(139, 148, 158, 0.3)'};
   border-radius: var(--radius-full);
   padding: var(--spacing-xs) var(--spacing-md);
   font-size: var(--text-sm);
@@ -128,7 +133,7 @@ const EmotionButton = styled(motion.button)`
   
   &:hover {
     transform: translateY(-1px);
-    background: ${props => props.selected ? 'var(--gradient-primary)' : 'rgba(138, 43, 226, 0.1)'};
+    background: ${props => props.$selected ? 'var(--gradient-primary)' : 'rgba(138, 43, 226, 0.1)'};
   }
 `;
 
@@ -142,8 +147,9 @@ const FeedbackItem = styled(motion.div)`
   background: rgba(22, 27, 34, 0.6);
   border: 1px solid rgba(139, 148, 158, 0.2);
   border-radius: var(--radius-md);
-  padding: var(--spacing-md);
+  padding: clamp(0.85rem, 2.5vw, var(--spacing-md));
   transition: var(--transition-fast);
+  min-width: 0;
   
   &:hover {
     border-color: var(--primary-purple);
@@ -160,6 +166,7 @@ const FeedbackHeader = styled.div`
 
 const FeedbackMeta = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--spacing-sm);
   color: var(--text-secondary);
@@ -170,6 +177,7 @@ const FeedbackContent = styled.p`
   color: var(--text-primary);
   line-height: 1.6;
   margin: 0;
+  overflow-wrap: anywhere;
 `;
 
 const EmotionTag = styled.span`
@@ -314,7 +322,7 @@ const FanInteractionHub = () => {
   };
 
   return (
-    <InteractionContainer>
+    <InteractionContainer id="community-hub">
       <SectionTitle>与董小姐的音乐共鸣</SectionTitle>
       
       <FeedbackForm onSubmit={handleSubmit}>
@@ -362,7 +370,7 @@ const FanInteractionHub = () => {
               <EmotionButton
                 key={emotion.id}
                 type="button"
-                selected={selectedEmotions.includes(emotion.id)}
+                $selected={selectedEmotions.includes(emotion.id)}
                 onClick={() => handleEmotionToggle(emotion.id)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

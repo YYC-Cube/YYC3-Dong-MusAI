@@ -158,7 +158,7 @@ const EnhancedArtistHero = ({ artistData }) => {
   }
 
   return (
-    <HeroContainer>
+    <HeroContainer id="about">
       <ParticleBackground />
       
       <motion.div 
@@ -307,7 +307,7 @@ const LatestReleases = ({ releases, onTrackSelect }) => {
   };
 
   return (
-    <ReleasesContainer>
+    <ReleasesContainer id="music">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -360,7 +360,7 @@ const LatestReleases = ({ releases, onTrackSelect }) => {
 // 粉丝墙组件
 const FanWall = ({ fansWall }) => {
   return (
-    <FanWallContainer>
+    <FanWallContainer id="community">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -521,6 +521,7 @@ const HomePageContainer = styled.div`
   background: linear-gradient(135deg, #0D1117 0%, #161B22 50%, #0D1117 100%);
   color: white;
   min-height: 100vh;
+  overflow-x: clip;
 `;
 
 const HeroContainer = styled.div`
@@ -535,8 +536,11 @@ const HeroContainer = styled.div`
   .hero-content {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 4rem;
+    width: 100%;
     max-width: 1200px;
+    padding: 0 1rem;
     z-index: 2;
   }
 
@@ -566,10 +570,12 @@ const HeroContainer = styled.div`
 
   .artist-info {
     flex: 1;
+    min-width: 0;
     
     h1 {
-      font-size: 4rem;
+      font-size: clamp(2.6rem, 6vw, 4rem);
       margin-bottom: 1rem;
+      word-break: break-word;
       
       .name {
         background: linear-gradient(45deg, #8A2BE2, #FF6B6B);
@@ -590,10 +596,12 @@ const HeroContainer = styled.div`
       color: #B8BCC8;
       margin-bottom: 2rem;
       line-height: 1.6;
+      overflow-wrap: anywhere;
     }
     
     .genres {
       display: flex;
+      flex-wrap: wrap;
       gap: 1rem;
       margin-bottom: 2rem;
       
@@ -615,8 +623,8 @@ const HeroContainer = styled.div`
     
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(1rem, 2vw, 2rem);
       margin-bottom: 2rem;
       
       .stat-item {
@@ -624,7 +632,7 @@ const HeroContainer = styled.div`
         
         .stat-value {
           display: block;
-          font-size: 2.5rem;
+          font-size: clamp(1.8rem, 3vw, 2.5rem);
           font-weight: bold;
           color: #FF6B6B;
           line-height: 1;
@@ -641,6 +649,7 @@ const HeroContainer = styled.div`
     
     .social-links {
       display: flex;
+      flex-wrap: wrap;
       gap: 1rem;
       
       .social-link {
@@ -667,6 +676,57 @@ const HeroContainer = styled.div`
         &:hover {
           transform: translateY(-2px);
           box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 900px) {
+    min-height: auto;
+    padding: 7rem 1.25rem 3rem;
+
+    .hero-content {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .artist-avatar img {
+      width: 200px;
+      height: 200px;
+    }
+
+    .artist-info {
+      width: 100%;
+
+      .genres,
+      .social-links {
+        justify-content: center;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 6.5rem 1rem 2.5rem;
+
+    .artist-avatar img {
+      width: 160px;
+      height: 160px;
+    }
+
+    .artist-info {
+      .philosophy-quote {
+        font-size: 1rem;
+      }
+
+      .stats-grid .stat-item {
+        .stat-value {
+          font-size: 1.5rem;
+        }
+
+        .stat-label {
+          font-size: 0.72rem;
+          letter-spacing: 0;
         }
       }
     }
@@ -802,12 +862,12 @@ const VisualizerContainer = styled.div`
 `;
 
 const ReleasesContainer = styled.section`
-  padding: 4rem 2rem;
+  padding: clamp(3rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem);
   max-width: 1200px;
   margin: 0 auto;
   
   h2 {
-    font-size: 2.5rem;
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
     text-align: center;
     margin-bottom: 3rem;
     background: linear-gradient(45deg, #8A2BE2, #FF6B6B);
@@ -817,10 +877,11 @@ const ReleasesContainer = styled.section`
   
   .releases-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
     
     .release-card {
+      min-width: 0;
       background: rgba(22, 27, 34, 0.8);
       border-radius: 15px;
       overflow: hidden;
@@ -885,6 +946,7 @@ const ReleasesContainer = styled.section`
           margin: 0 0 0.5rem 0;
           font-size: 1.3rem;
           color: white;
+          overflow-wrap: anywhere;
         }
         
         .release-date {
@@ -908,12 +970,12 @@ const ReleasesContainer = styled.section`
 `;
 
 const FanWallContainer = styled.section`
-  padding: 4rem 2rem;
+  padding: clamp(3rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem);
   max-width: 1000px;
   margin: 0 auto;
   
   h2 {
-    font-size: 2.5rem;
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
     text-align: center;
     margin-bottom: 3rem;
     background: linear-gradient(45deg, #8A2BE2, #FF6B6B);
@@ -929,8 +991,13 @@ const FanWallContainer = styled.section`
     .fan-message {
       background: rgba(22, 27, 34, 0.6);
       border-radius: 15px;
-      padding: 1.5rem;
+      padding: clamp(1rem, 3vw, 1.5rem);
       border: 1px solid rgba(138, 43, 226, 0.1);
+      min-width: 0;
+      
+      .message-text {
+        overflow-wrap: anywhere;
+      }
       
       .message-header {
         display: flex;

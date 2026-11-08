@@ -18,7 +18,13 @@ const PlayerContainer = styled.div`
   padding: 0 20px;
   gap: 20px;
   transition: transform 0.3s ease;
-  transform: ${props => props.isVisible ? 'translateY(0)' : 'translateY(100%)'};
+  transform: ${props => props.$isVisible ? 'translateY(0)' : 'translateY(100%)'};
+
+  @media (max-width: 768px) {
+    height: 84px;
+    padding: 0 12px;
+    gap: 10px;
+  }
 `;
 
 const TrackInfo = styled.div`
@@ -27,6 +33,10 @@ const TrackInfo = styled.div`
   align-items: center;
   gap: 15px;
   min-width: 0;
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
 `;
 
 const CoverArt = styled.div`
@@ -42,6 +52,12 @@ const CoverArt = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
   }
   
   &::before {
@@ -69,6 +85,13 @@ const TrackDetails = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  @media (max-width: 768px) {
+    h4 {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+  }
   
   p {
     color: var(--text-secondary);
@@ -84,6 +107,10 @@ const PlayerControls = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
+
+  @media (max-width: 768px) {
+    gap: 2px;
+  }
 `;
 
 const ControlButton = styled(motion.button)`
@@ -91,7 +118,7 @@ const ControlButton = styled(motion.button)`
   border: none;
   color: var(--text-primary);
   cursor: pointer;
-  font-size: ${props => props.primary ? '24px' : '20px'};
+  font-size: ${props => props.$primary ? '24px' : '20px'};
   padding: 8px;
   border-radius: 50%;
   transition: all 0.2s ease;
@@ -112,6 +139,12 @@ const ProgressSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media (max-width: 768px) {
+    max-width: none;
+    min-width: 60px;
+    gap: 6px;
+  }
 `;
 
 const ProgressBar = styled.div`
@@ -164,6 +197,10 @@ const VolumeControl = styled.div`
   align-items: center;
   gap: 10px;
   min-width: 120px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const VolumeSlider = styled.input`
@@ -286,7 +323,7 @@ const AdvancedMusicPlayer = ({
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          isVisible={isVisible}
+          $isVisible={isVisible}
         >
           <audio
             ref={audioRef}
@@ -326,7 +363,7 @@ const AdvancedMusicPlayer = ({
             </ControlButton>
             
             <ControlButton
-              primary
+              $primary
               onClick={onPlayPause}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}

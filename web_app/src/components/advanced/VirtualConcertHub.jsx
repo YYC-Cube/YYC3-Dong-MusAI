@@ -6,8 +6,9 @@ import { resolvePoster } from '../../config/assets';
 const ConcertContainer = styled.div`
   background: var(--gradient-card);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-xl);
-  margin: var(--spacing-xl) 0;
+  padding: clamp(1.25rem, 4vw, var(--spacing-xl));
+  margin: var(--spacing-xl) auto;
+  max-width: 1300px;
   backdrop-filter: blur(10px);
   border: var(--border-primary);
   position: relative;
@@ -33,7 +34,7 @@ const ContentWrapper = styled.div`
 
 const SectionTitle = styled.h2`
   color: var(--text-primary);
-  font-size: var(--text-3xl);
+  font-size: clamp(1.8rem, 4vw, var(--text-3xl));
   font-weight: 600;
   margin-bottom: var(--spacing-lg);
   text-align: center;
@@ -45,8 +46,8 @@ const SectionTitle = styled.h2`
 
 const ConcertGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: var(--spacing-xl);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: clamp(1.25rem, 3vw, var(--spacing-xl));
 `;
 
 const ConcertCard = styled(motion.div)`
@@ -55,6 +56,7 @@ const ConcertCard = styled(motion.div)`
   overflow: hidden;
   border: 1px solid rgba(139, 148, 158, 0.2);
   transition: var(--transition-fast);
+  min-width: 0;
   
   &:hover {
     border-color: var(--primary-purple);
@@ -123,20 +125,22 @@ const ConcertImage = styled.div`
 `;
 
 const ConcertInfo = styled.div`
-  padding: var(--spacing-lg);
+  padding: clamp(1rem, 3vw, var(--spacing-lg));
 `;
 
 const ConcertTitle = styled.h3`
   color: var(--text-primary);
-  font-size: var(--text-xl);
+  font-size: clamp(1.05rem, 2.5vw, var(--text-xl));
   font-weight: 600;
   margin: 0 0 var(--spacing-sm) 0;
+  overflow-wrap: anywhere;
 `;
 
 const ConcertSubtitle = styled.p`
   color: var(--text-secondary);
   font-size: var(--text-sm);
   margin: 0 0 var(--spacing-md) 0;
+  overflow-wrap: anywhere;
 `;
 
 const ConcertMeta = styled.div`
@@ -177,7 +181,7 @@ const CountdownTitle = styled.div`
 const CountdownTime = styled.div`
   display: flex;
   justify-content: center;
-  gap: var(--spacing-sm);
+  gap: clamp(0.5rem, 2vw, var(--spacing-sm));
 `;
 
 const TimeUnit = styled.div`
@@ -187,7 +191,7 @@ const TimeUnit = styled.div`
   
   .number {
     color: var(--primary-purple);
-    font-size: var(--text-2xl);
+    font-size: clamp(1.3rem, 3vw, var(--text-2xl));
     font-weight: 700;
     line-height: 1;
   }
@@ -201,14 +205,20 @@ const TimeUnit = styled.div`
 
 const ActionButtons = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: var(--spacing-sm);
+
+  @media (max-width: 420px) {
+    flex-direction: column;
+  }
 `;
 
 const ActionButton = styled(motion.button)`
-  flex: 1;
-  background: ${props => props.primary ? 'var(--gradient-primary)' : 'rgba(22, 27, 34, 0.8)'};
-  color: ${props => props.primary ? 'white' : 'var(--text-secondary)'};
-  border: 1px solid ${props => props.primary ? 'transparent' : 'rgba(139, 148, 158, 0.3)'};
+  flex: 1 1 140px;
+  min-width: 0;
+  background: ${props => props.$primary ? 'var(--gradient-primary)' : 'rgba(22, 27, 34, 0.8)'};
+  color: ${props => props.$primary ? 'white' : 'var(--text-secondary)'};
+  border: 1px solid ${props => props.$primary ? 'transparent' : 'rgba(139, 148, 158, 0.3)'};
   border-radius: var(--radius-md);
   padding: var(--spacing-sm) var(--spacing-md);
   font-size: var(--text-sm);
@@ -218,7 +228,7 @@ const ActionButton = styled(motion.button)`
   
   &:hover {
     transform: translateY(-1px);
-    background: ${props => props.primary ? 'var(--gradient-primary)' : 'rgba(138, 43, 226, 0.1)'};
+    background: ${props => props.$primary ? 'var(--gradient-primary)' : 'rgba(138, 43, 226, 0.1)'};
   }
   
   &:disabled {
@@ -335,7 +345,7 @@ const VirtualConcertHub = () => {
   };
 
   return (
-    <ConcertContainer>
+    <ConcertContainer id="concerts">
       <BackgroundEffect />
       <ContentWrapper>
         <SectionTitle>虚拟演唱会 & 直播预告</SectionTitle>
@@ -417,7 +427,7 @@ const VirtualConcertHub = () => {
                 
                 <ActionButtons>
                   <ActionButton
-                    primary
+                    $primary
                     onClick={() => handleBookTicket(concert)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}

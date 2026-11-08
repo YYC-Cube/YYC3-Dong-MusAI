@@ -16,6 +16,47 @@
 
 ---
 
+## [2.0.0] - 2026-11-09
+
+### 新增
+
+- 全局响应式 UI 体系：桌面 1440 / 平板 1024 / 移动 390 三档断点
+- Playwright 多视口自动化审计脚本与截图验收（零横向溢出）
+- 首页锚点导航：音乐 / 关于 / 社区 / 独家 / 演出 / AI 创作
+- Vite 8 + React 19 + Vitest 5 前端工程化基线
+- Pages SPA 回退、API 静态回退与全区块内容降级
+
+### 变更
+
+- `web_app`：Create React App → Vite 8，入口迁移为 `src/index.jsx` / `src/App.jsx`
+- `web_app`：React 18.2 → 19.3、styled-components 6.6、framer-motion 14.10、react-router-dom 7.18、axios 1.21
+- `web_app`：Jest → Vitest 5 + jsdom 31，环境变量 `REACT_APP_*` → `VITE_*`
+- `api_service`：Express 4 → 5.3、helmet 8、express-rate-limit 8、dotenv 18、sqlite3 6、Jest 30
+- `admin_panel`：Vue 3.5、Pinia 4、Vue Router 5、Vite 8、vue-tsc 3.3；TypeScript 固定 5.9（TS 7 与 vue-tsc 暂不兼容）
+- CI：Node 20 → 22，前端测试切换为 Vitest；Pages 构建同步升级
+
+### 修复
+
+- **根因修复**：`global.css` 从未被引入，导致全部 design tokens（间距/颜色/渐变/圆角）失效
+- Hero 在移动端横向溢出，头像与信息区未堆叠
+- 演唱会、AI 创作、独家内容、社交动态、数据看板网格在平板/移动端溢出
+- AI 四步卡片桌面端 3+1 错位，改为 4 列 / 2 列 / 1 列
+- 移动端导航换行导致吸顶头部过高，改为单行横向滚动
+- 移动端固定播放器遮挡内容，主内容区增加底部安全间距
+- 锚点定位被吸顶导航遮挡，统一设置 `scroll-margin-top`
+- React 19 非布尔属性告警（styled-components 瞬态 props）
+- 前端单测缺少 jest-dom 初始化、Canvas / IntersectionObserver 环境兼容
+
+### 验证
+
+- `npm run build`（Vite 8）通过，产物 `build/` 含 `CNAME` / `404.html`
+- `npm test`（Vitest 5）1/1 通过
+- API 集成测试 2 suites / 17 tests 通过（Express 5）
+- Admin `vue-tsc --noEmit && vite build` 通过
+- Playwright：1440 / 1024 / 390 三档 `scrollWidth === innerWidth`，零破图、零错误态
+
+---
+
 ## [1.7.0] - 2026-11-09
 
 ### 新增

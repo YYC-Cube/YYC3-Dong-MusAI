@@ -5,15 +5,16 @@ import styled from 'styled-components';
 const AnalyticsContainer = styled.div`
   background: var(--gradient-card);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-xl);
-  margin: var(--spacing-xl) 0;
+  padding: clamp(1.25rem, 4vw, var(--spacing-xl));
+  margin: var(--spacing-xl) auto;
+  max-width: 1300px;
   backdrop-filter: blur(10px);
   border: var(--border-primary);
 `;
 
 const SectionTitle = styled.h2`
   color: var(--text-primary);
-  font-size: var(--text-3xl);
+  font-size: clamp(1.8rem, 4vw, var(--text-3xl));
   font-weight: 600;
   margin-bottom: var(--spacing-lg);
   text-align: center;
@@ -25,18 +26,19 @@ const SectionTitle = styled.h2`
 
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-lg);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  gap: clamp(0.75rem, 2vw, var(--spacing-lg));
   margin-bottom: var(--spacing-xl);
 `;
 
 const StatCard = styled(motion.div)`
   background: rgba(22, 27, 34, 0.8);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
+  padding: clamp(0.85rem, 2.5vw, var(--spacing-lg));
   border: 1px solid rgba(139, 148, 158, 0.2);
   text-align: center;
   transition: var(--transition-fast);
+  min-width: 0;
   
   &:hover {
     border-color: var(--primary-purple);
@@ -64,12 +66,12 @@ const StatLabel = styled.div`
 `;
 
 const StatTrend = styled.div`
-  color: ${props => props.positive ? '#22c55e' : '#ef4444'};
+  color: ${props => props.$positive ? '#22c55e' : '#ef4444'};
   font-size: var(--text-xs);
   margin-top: var(--spacing-xs);
   
   &::before {
-    content: '${props => props.positive ? '↗' : '↘'}';
+    content: '${props => props.$positive ? '↗' : '↘'}';
     margin-right: 4px;
   }
 `;
@@ -88,8 +90,10 @@ const ChartsSection = styled.div`
 const ChartContainer = styled.div`
   background: rgba(22, 27, 34, 0.6);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
+  padding: clamp(0.9rem, 2.5vw, var(--spacing-lg));
   border: 1px solid rgba(139, 148, 158, 0.2);
+  min-width: 0;
+  overflow: hidden;
 `;
 
 const ChartTitle = styled.h3`
@@ -319,7 +323,7 @@ const MusicDataAnalytics = () => {
   };
 
   return (
-    <AnalyticsContainer>
+    <AnalyticsContainer id="analytics">
       <SectionTitle>音乐数据中心</SectionTitle>
       
       <StatsGrid>
@@ -332,7 +336,7 @@ const MusicDataAnalytics = () => {
           <StatIcon>🎵</StatIcon>
           <StatValue>{formatNumber(stats.totalPlays)}</StatValue>
           <StatLabel>总播放量</StatLabel>
-          <StatTrend positive>+12.3% 本月</StatTrend>
+          <StatTrend $positive>+12.3% 本月</StatTrend>
         </StatCard>
 
         <StatCard
@@ -344,7 +348,7 @@ const MusicDataAnalytics = () => {
           <StatIcon>👥</StatIcon>
           <StatValue>{formatNumber(stats.monthlyListeners)}</StatValue>
           <StatLabel>月度听众</StatLabel>
-          <StatTrend positive>+8.7% 本月</StatTrend>
+          <StatTrend $positive>+8.7% 本月</StatTrend>
         </StatCard>
 
         <StatCard
@@ -356,7 +360,7 @@ const MusicDataAnalytics = () => {
           <StatIcon>❤️</StatIcon>
           <StatValue>{formatNumber(stats.followers)}</StatValue>
           <StatLabel>粉丝数量</StatLabel>
-          <StatTrend positive>+15.2% 本月</StatTrend>
+          <StatTrend $positive>+15.2% 本月</StatTrend>
         </StatCard>
 
         <StatCard
@@ -368,7 +372,7 @@ const MusicDataAnalytics = () => {
           <StatIcon>⭐</StatIcon>
           <StatValue>{stats.averageRating}</StatValue>
           <StatLabel>平均评分</StatLabel>
-          <StatTrend positive>+0.2 本月</StatTrend>
+          <StatTrend $positive>+0.2 本月</StatTrend>
         </StatCard>
       </StatsGrid>
 

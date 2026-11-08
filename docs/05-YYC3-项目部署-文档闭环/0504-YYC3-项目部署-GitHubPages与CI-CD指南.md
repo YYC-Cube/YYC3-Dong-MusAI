@@ -3,7 +3,7 @@ file: 0504-YYC3-项目部署-GitHubPages与CI-CD指南.md
 title: M98 董小姐音乐宇宙 — GitHub Pages 与 CI/CD 指南
 description: GitHub Pages 自定义域名部署、Actions CI 门禁、CodeQL 安全扫描与回滚验收的完整操作手册
 author: YYC³ Team <admin@0379.email>
-version: v1.0.0
+version: v1.1.0
 created: 2026-11-09
 updated: 2026-11-09
 status: stable
@@ -37,7 +37,7 @@ phase: production
 | 线上入口 | [https://musai.yyc3.vip](https://musai.yyc3.vip) |
 | 仓库 | [https://github.com/YYC-Cube/YYC3-Dong-MusAI](https://github.com/YYC-Cube/YYC3-Dong-MusAI) |
 
-> Pages 只承载静态前端。生产环境需通过 `REACT_APP_API_BASE_URL` 指向独立部署的 API。
+> Pages 只承载静态前端。生产环境需通过 `VITE_API_BASE_URL` 指向独立部署的 API。
 
 ---
 
@@ -79,7 +79,7 @@ GitHub · YYC-Cube/YYC3-Dong-MusAI
 
 ### 3.1 资产与 CNAME 同步
 
-CRA 仅服务 `web_app/public`，根 `public/` 为唯一事实源。`web_app/package.json` 在 `prestart` / `prebuild` 阶段执行 `scripts/sync-assets.js`，白名单包含：
+CRA → Vite 迁移后，Vite 服务 `web_app/public`，根 `public/` 仍为唯一事实源。`web_app/package.json` 在 `prestart` / `prebuild` 阶段执行 `scripts/sync-assets.js`，白名单包含：
 
 ```text
 D-Music  D-Music-icons  D-cover  D-poster
@@ -100,7 +100,7 @@ Pages 静态站点可能无法访问 `api_service`。前端按以下策略保证
 
 | 场景 | 行为 |
 | ---- | ---- |
-| 生产构建未设置 `REACT_APP_API_BASE_URL` | 直接使用 `web_app/src/config/fallbackData.js` 本地静态数据 |
+| 生产构建未设置 `VITE_API_BASE_URL` | 直接使用 `web_app/src/config/fallbackData.js` 本地静态数据 |
 | 已设置 API 地址但请求失败 | 捕获异常后回退本地静态数据，页面不进入错误屏 |
 | 测试环境（`NODE_ENV=test`） | 默认使用本地静态数据，避免真实网络请求 |
 | 开发环境 | 优先请求 `http://localhost:4000`，失败时回退 |
@@ -110,7 +110,7 @@ Pages 静态站点可能无法访问 `api_service`。前端按以下策略保证
 [`deploy-pages.yml`](../../.github/workflows/deploy-pages.yml) 关键步骤：
 
 1. `actions/checkout@v4`
-2. `actions/setup-node@v4`（Node 20 + npm 缓存）
+2. `actions/setup-node@v4`（Node 22 + npm 缓存）
 3. `actions/configure-pages@v5`
 4. `npm ci` → `npm run build`（`CI=true`）
 5. 校验 `web_app/build/CNAME` 等于 `musai.yyc3.vip`
@@ -128,9 +128,9 @@ Pages 静态站点可能无法访问 `api_service`。前端按以下策略保证
 | Job | 内容 | 关键命令 |
 | ---- | ---- | ---- |
 | `static` | JSON、API 语法、CNAME 校验 | `node -e JSON.parse` / `node --check` / `test CNAME` |
-| `web` | CRA 构建与单元测试 | `npm ci` → `npm run build` → `npm test` |
+| `web` | Vite 构建与 Vitest 单元测试 | `npm ci` → `npm run build` → `npm test` |
 | `api` | PostgreSQL 15 服务容器 + 集成测试 | `npm run pg:migrate` → `npm test` |
-| `admin` | Vue 3 类型检查与构建 | `npm ci` → `npm run build` |
+| `admin` | Vue 3.5 类型检查与构建 | `npm ci` → `npm run build` |
 
 API Job 使用隔离测试库：
 
@@ -204,7 +204,7 @@ SPA fallback ok
 | ---- | ---- |
 | 前端版本回滚 | 在 Actions 中重新运行上一个成功提交的 `Deploy Pages`，或 `git revert` 后推送 |
 | 自定义域名异常 | 检查 `public/CNAME` 与 Pages Settings 是否一致，重新触发部署 |
-| 构建失败 | 本地执行 `npm ci && CI=true npm run build` 复现，修复后推送 |
+| 构建失败 | 本地执行 `npm ci && npm run build` 复现，修复后推送 |
 | 证书异常 | 等待 GitHub 重新签发，或在 Pages Settings 中移除后重新添加域名 |
 | CI 误报 | 保留失败日志，修复根因；禁止直接跳过必需检查 |
 
@@ -221,7 +221,7 @@ SPA fallback ok
 | CNAME 丢失 | 构建产物未包含 `public/CNAME` | 检查 `sync-assets.js` 白名单与 `build/CNAME` 校验步骤 |
 | HTTPS 未生效 | 证书签发中 / DNS 未验证 | 等待签发；核对 DNS `CNAME → yyc-cube.github.io` |
 | 资源 404 | 资产未同步 / 路径大小写不一致 | 本地构建检查 `build/D-*`；核对 `assets.js` |
-| API 请求失败 | 未设置 `REACT_APP_API_BASE_URL` / CORS | 配置仓库变量并重新构建；核对 `FRONTEND_URL` |
+| API 请求失败 | 未设置 `VITE_API_BASE_URL` / CORS | 配置仓库变量并重新构建；核对 `FRONTEND_URL` |
 | Actions 权限错误 | `permissions` 缺失 | 确认 `pages: write`、`id-token: write` |
 
 ---
@@ -268,6 +268,7 @@ SPA fallback ok
 
 | 版本 | 日期 | 变更内容 | 作者 |
 | ---- | ---- | -------- | ---- |
+| v1.1.0 | 2026-11-09 | 适配 Vite 8 + React 19：更新构建链路、Node 22、`VITE_API_BASE_URL` 与 Vitest 命令 | YYC³ Team |
 | v1.0.0 | 2026-11-09 | 建立 GitHub Pages、CI、CodeQL、回滚与验收手册 | YYC³ Team |
 
 ---

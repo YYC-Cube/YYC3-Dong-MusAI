@@ -6,15 +6,16 @@ import { resolvePoster } from '../../config/assets';
 const SocialContainer = styled.div`
   background: var(--gradient-card);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-xl);
-  margin: var(--spacing-xl) 0;
+  padding: clamp(1.25rem, 4vw, var(--spacing-xl));
+  margin: var(--spacing-xl) auto;
+  max-width: 1300px;
   backdrop-filter: blur(10px);
   border: var(--border-primary);
 `;
 
 const SectionTitle = styled.h2`
   color: var(--text-primary);
-  font-size: var(--text-3xl);
+  font-size: clamp(1.8rem, 4vw, var(--text-3xl));
   font-weight: 600;
   margin-bottom: var(--spacing-lg);
   text-align: center;
@@ -26,16 +27,17 @@ const SectionTitle = styled.h2`
 
 const SocialGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-lg);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: clamp(1rem, 2.5vw, var(--spacing-lg));
 `;
 
 const SocialCard = styled(motion.div)`
   background: rgba(22, 27, 34, 0.8);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
+  padding: clamp(1rem, 2.5vw, var(--spacing-lg));
   border: 1px solid rgba(139, 148, 158, 0.2);
   transition: var(--transition-fast);
+  min-width: 0;
   
   &:hover {
     border-color: var(--primary-purple);
@@ -59,7 +61,7 @@ const SocialIcon = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  background: ${props => props.bgColor || 'var(--gradient-primary)'};
+  background: ${props => props.$bgColor || 'var(--gradient-primary)'};
   color: white;
 `;
 
@@ -243,7 +245,7 @@ const SocialMediaIntegration = () => {
   };
 
   return (
-    <SocialContainer>
+    <SocialContainer id="social">
       <SectionTitle>社交动态</SectionTitle>
       
       <SocialGrid>
@@ -257,7 +259,7 @@ const SocialMediaIntegration = () => {
               whileHover={{ scale: 1.02 }}
             >
               <SocialHeader>
-                <SocialIcon bgColor={post.bgColor}>
+                <SocialIcon $bgColor={post.bgColor}>
                   {post.icon}
                 </SocialIcon>
                 <SocialMeta>

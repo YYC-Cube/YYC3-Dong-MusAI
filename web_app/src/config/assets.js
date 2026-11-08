@@ -11,17 +11,17 @@
  * brief: 聚合 public/ 下的品牌、视觉与音乐资产，前后端全端唯一引用入口
  *
  * details:
- * - 资产根目录统一取自 process.env.PUBLIC_URL（兼容 CRA 子路径部署）
+ * - 资产根目录统一取自 import.meta.env.BASE_URL（兼容 Vite 子路径部署）
  * - 音频文件名含中文与空格，统一通过 encodeURIComponent 编码
  * - 封面与海报按序号循环分配，避免空图与 404
  *
- * dependencies: Create React App PUBLIC_URL
+ * dependencies: Vite import.meta.env.BASE_URL
  * exports: ASSETS, resolveCover, resolvePoster
  */
 
-const PUBLIC = process.env.PUBLIC_URL || '';
+const BASE_URL = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 
-const withPublic = (path) => `${PUBLIC}${path}`;
+const withPublic = (path) => `${BASE_URL}${path}`;
 
 const coverFiles = [
   'D-cover-01.jpg',

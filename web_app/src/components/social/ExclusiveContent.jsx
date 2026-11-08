@@ -63,7 +63,7 @@ const ExclusiveContent = () => {
   };
 
   return (
-    <ExclusiveContainer>
+    <ExclusiveContainer id="exclusive">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -281,7 +281,7 @@ const ExclusiveContent = () => {
 
 // Styled Components
 const ExclusiveContainer = styled.section`
-  padding: 6rem 2rem;
+  padding: clamp(3rem, 6vw, 6rem) clamp(1rem, 4vw, 2rem);
   max-width: 1400px;
   margin: 0 auto;
   background: linear-gradient(180deg, 
@@ -291,7 +291,7 @@ const ExclusiveContainer = styled.section`
     transparent 100%);
   
   h2 {
-    font-size: 3rem;
+    font-size: clamp(1.9rem, 4vw, 3rem);
     text-align: center;
     margin-bottom: 2rem;
     background: linear-gradient(45deg, #8A2BE2, #FF6B6B);
@@ -326,11 +326,13 @@ const ExclusiveContainer = styled.section`
     text-align: center;
     max-width: 800px;
     margin: 0 auto 4rem auto;
+    padding: 0 1rem;
     
     p {
       color: #B8BCC8;
-      font-size: 1.1rem;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
       line-height: 1.7;
+      overflow-wrap: anywhere;
     }
   }
   
@@ -340,7 +342,7 @@ const ExclusiveContainer = styled.section`
       rgba(255, 107, 107, 0.1) 100%);
     border: 1px solid rgba(138, 43, 226, 0.3);
     border-radius: 20px;
-    padding: 3rem;
+    padding: clamp(1.25rem, 4vw, 3rem);
     margin-bottom: 4rem;
     position: relative;
     overflow: hidden;
@@ -352,7 +354,7 @@ const ExclusiveContainer = styled.section`
       text-align: center;
       
       h3 {
-        font-size: 2rem;
+        font-size: clamp(1.3rem, 3vw, 2rem);
         margin-bottom: 1rem;
         background: linear-gradient(45deg, #8A2BE2, #FF6B6B);
         -webkit-background-clip: text;
@@ -361,13 +363,14 @@ const ExclusiveContainer = styled.section`
       
       p {
         color: #B8BCC8;
-        font-size: 1.1rem;
+        font-size: clamp(0.95rem, 2vw, 1.1rem);
         margin-bottom: 2rem;
+        overflow-wrap: anywhere;
       }
       
       .benefits {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
         gap: 1rem;
         margin-bottom: 2rem;
         
@@ -382,12 +385,13 @@ const ExclusiveContainer = styled.section`
         background: linear-gradient(45deg, #8A2BE2, #FF6B6B);
         color: white;
         border: none;
-        padding: 1.25rem 3rem;
+        padding: clamp(0.85rem, 2vw, 1.25rem) clamp(1.5rem, 5vw, 3rem);
         border-radius: 30px;
-        font-size: 1.1rem;
+        font-size: clamp(0.95rem, 2vw, 1.1rem);
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
+        max-width: 100%;
         
         &:hover {
           box-shadow: 0 15px 35px rgba(138, 43, 226, 0.4);
@@ -467,11 +471,12 @@ const ExclusiveContainer = styled.section`
 
   .content-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: clamp(1.25rem, 3vw, 2.5rem);
     margin-bottom: 4rem;
     
     .content-card {
+      min-width: 0;
       background: rgba(22, 27, 34, 0.8);
       border-radius: 20px;
       overflow: hidden;

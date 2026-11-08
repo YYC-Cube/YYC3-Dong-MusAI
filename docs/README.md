@@ -3,7 +3,7 @@ file: README.md
 title: M98 董小姐音乐宇宙 — 文档目录索引
 description: M98 项目文档总索引 — 十二阶段分类、标规对齐、追溯关系与遗留文档归档
 author: YYC³ Team <admin@0379.email>
-version: v1.2.0
+version: v1.3.0
 created: 2026-11-07
 updated: 2026-11-09
 status: stable
@@ -242,7 +242,7 @@ docs/
 **远程仓库**：[https://github.com/YYC-Cube/YYC3-Dong-MusAI](https://github.com/YYC-Cube/YYC3-Dong-MusAI)
 **线上站点**：[https://musai.yyc3.vip](https://musai.yyc3.vip)
 
-**GitHub Topics**：`yyc3` `m98` `dongxiaojie` `music` `music-platform` `fan-platform` `react` `express` `postgresql` `github-pages` `ci-cd` `open-source` `ai-music` `eastern-electronic` `yyc3-standard`
+**GitHub Topics**：`yyc3` `m98` `dongxiaojie` `music` `music-platform` `fan-platform` `react` `vite` `express` `postgresql` `github-pages` `ci-cd` `open-source` `ai-music` `eastern-electronic` `yyc3-standard`
 
 **文档关键词**：言启象限 · 语枢未来 · 万象归元于云枢 · 深栈智启新纪元 · 五高五标五化五维 · 东方电子音乐 · 音乐人生态
 
@@ -252,6 +252,7 @@ docs/
 
 | 版本 | 日期 | 变更内容 | 作者 |
 | ---- | ---- | -------- | ---- |
+| v1.3.0 | 2026-11-09 | 记录 Vite 8 / React 19 / Express 5 技术栈升级与全局响应式 UI 修复 | YYC³ Team |
 | v1.2.0 | 2026-11-09 | 新增 0504 GitHub Pages 与 CI/CD 指南；登记远程仓库与线上站点；Topics 更新为 PostgreSQL / GitHub Pages / CI-CD | YYC³ Team |
 | v1.1.4 | 2026-11-07 | 记录前端内容 API 接入与 Mongo/SQLite/Mock 入口下线 | YYC³ Team |
 | v1.1.3 | 2026-11-07 | 内容接口切换 PG 并建立 PG 测试库 | YYC³ Team |

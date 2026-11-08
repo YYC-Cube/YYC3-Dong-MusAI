@@ -6,7 +6,42 @@
 // ============================================================
 // Copyright (c) 2026 YanYuCloudCube™（YYC³）| admin@0379.email
 // ============================================================
-// CRA 测试初始化：注册 jest-dom 断言扩展
+// Vitest 测试初始化：注册 jest-dom 断言扩展
 // ============================================================
 
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
+
+class MockIntersectionObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+  takeRecords() {
+    return [];
+  }
+}
+
+class MockResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+globalThis.IntersectionObserver = MockIntersectionObserver;
+globalThis.ResizeObserver = MockResizeObserver;
+
+if (!window.matchMedia) {
+  window.matchMedia = () => ({
+    matches: false,
+    media: '',
+    onchange: null,
+    addListener() {},
+    removeListener() {},
+    addEventListener() {},
+    removeEventListener() {},
+    dispatchEvent() {
+      return false;
+    },
+  });
+}
+
+HTMLCanvasElement.prototype.getContext = () => null;

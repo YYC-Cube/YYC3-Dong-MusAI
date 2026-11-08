@@ -38,7 +38,7 @@ app.use(
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 100,
+    limit: 100,
     standardHeaders: true,
     legacyHeaders: false,
   }),
@@ -96,7 +96,7 @@ app.use('/api/content', require('./routes/pg/contentRoutes'));
 app.use('/api/auth', require('./routes/authRoutes')());
 app.use('/api/admin', require('./routes/pg/adminRoutes'));
 
-app.use('*', (req, res) => {
+app.use((req, res) => {
   res.status(404).json({ message: '接口不存在' });
 });
 

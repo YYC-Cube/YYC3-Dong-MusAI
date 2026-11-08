@@ -29,8 +29,8 @@
 
 | 依赖 | 版本 | 说明 |
 | ---- | ---- | ---- |
-| Node.js | ≥ 18（推荐 20 / 22 LTS） | 三端统一 |
-| npm | ≥ 9 | 仓库使用 `package-lock.json`，CI 使用 `npm ci` |
+| Node.js | ≥ 20.19（推荐 22 LTS） | 三端统一 |
+| npm | ≥ 10 | 仓库使用 `package-lock.json`，CI 使用 `npm ci` |
 | PostgreSQL | 15 | 主库 `yyc3_music`，默认端口 `5433` |
 | Git | ≥ 2.30 | 支持 Conventional Commits |
 
@@ -65,9 +65,9 @@ npm run dev
 
 | 目录 | 命令 | 用途 |
 | ---- | ---- | ---- |
-| `web_app` | `npm start` | CRA 开发服务器（:3000） |
+| `web_app` | `npm start` | Vite 开发服务器（:3000） |
 | `web_app` | `npm run build` | 生产构建（含资产与 CNAME 同步） |
-| `web_app` | `npm test -- --watchAll=false` | 单元测试 |
+| `web_app` | `npm test` | Vitest 单元测试 |
 | `api_service` | `npm start` | Express API（:4000） |
 | `api_service` | `npm run pg:migrate` | 建立 `m98` schema |
 | `api_service` | `npm test` | API 集成测试（PG 测试库） |
@@ -161,8 +161,8 @@ grep -rn "/assets/" web_app/src || echo "资源引用通过"
 
 # 2. 前端构建与测试
 cd web_app
-CI=true npm run build
-CI=true npm test -- --watchAll=false
+npm run build
+npm test
 
 # 3. 后端测试（需 PostgreSQL 15）
 cd api_service

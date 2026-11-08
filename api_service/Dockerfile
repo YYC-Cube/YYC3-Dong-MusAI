@@ -1,19 +1,26 @@
-FROM node:18-alpine
+# ============================================================
+# YYC³（YanYuCloudCube™ · 注册商标）
+# 言启象限 | 语枢未来 · Words Initiate Quadrants, Language Serves as Core for Future
+# 万象归元于云枢 | 深栈智启新纪元
+# All things converge in cloud pivot; Deep stacks ignite a new era of intelligence
+# ============================================================
+# Copyright (c) 2026 YanYuCloudCube™（YYC³）| admin@0379.email
+# ============================================================
+FROM node:22-alpine
 
 WORKDIR /app
 
-# 安装构建工具和Python（sqlite3需要）
+# sqlite3 在无预编译包时需要构建工具
 RUN apk add --no-cache python3 make g++
 
-# 安装依赖
 COPY package*.json ./
-RUN npm install
+RUN npm ci --omit=dev
 
-# 复制源代码
 COPY . .
 
-# 暴露端口
 EXPOSE 4000
 
-# 启动应用
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget -qO- http://localhost:4000/health >/dev/null || exit 1
+
 CMD ["npm", "start"]

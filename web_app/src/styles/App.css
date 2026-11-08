@@ -24,7 +24,8 @@
   margin: 0 auto;
 }
 
-.nav-brand h1 {
+.nav-brand .brand-title {
+  display: block;
   font-size: 24px;
   font-weight: 700;
   background: linear-gradient(135deg, #4f46e5, #7c3aed);
@@ -63,7 +64,24 @@
 /* 主内容区域 */
 .app-main {
   flex: 1;
-  padding: 40px 0;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px 0 140px;
+}
+
+/* 锚点定位避开吸顶导航 */
+#about,
+#music,
+#community,
+#community-hub,
+#exclusive,
+#journal,
+#concerts,
+#ai,
+#analytics,
+#social {
+  scroll-margin-top: 96px;
 }
 
 /* 首页样式 */
@@ -131,12 +149,24 @@
   }
   
   .nav-links {
-    gap: 20px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100%;
+    overflow-x: auto;
+    padding: 0 2px 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
   }
   
   .nav-links a {
-    font-size: 13px;
-    padding: 6px 12px;
+    font-size: 12px;
+    padding: 6px 8px;
+    white-space: nowrap;
+    flex: 0 0 auto;
   }
   
   .m98-home {
@@ -161,10 +191,10 @@
 
 @media (max-width: 480px) {
   .app-main {
-    padding: 20px 0;
+    padding: 20px 0 120px;
   }
   
-  .nav-brand h1 {
+  .nav-brand .brand-title {
     font-size: 20px;
   }
   

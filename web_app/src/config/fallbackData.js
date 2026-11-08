@@ -23,8 +23,8 @@ import ASSETS from './assets';
 
 // 生产/测试环境未配置 API 地址时直接使用本地静态数据，避免 Pages 站点进入错误页
 export const PREFER_LOCAL_FALLBACK =
-  !process.env.REACT_APP_API_BASE_URL &&
-  ['production', 'test'].includes(process.env.NODE_ENV);
+  !import.meta.env.VITE_API_BASE_URL &&
+  (import.meta.env.PROD || import.meta.env.MODE === 'test');
 
 export const FALLBACK_ARTIST = {
   artistId: 'M98',

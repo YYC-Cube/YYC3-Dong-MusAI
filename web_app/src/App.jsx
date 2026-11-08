@@ -18,7 +18,7 @@ function App() {
                 height="48"
                 style={{ borderRadius: '12px', marginRight: '12px' }}
               />
-              <h1>M98 董小姐</h1>
+              <span className="brand-title">M98 董小姐</span>
               <span className="tagline">电子 × 东方 × 未来</span>
             </div>
             <div className="nav-links">
@@ -26,19 +26,21 @@ function App() {
               <a href="#about">关于</a>
               <a href="#community">社区</a>
               <a href="#exclusive">独家</a>
+              <a href="#concerts">演出</a>
+              <a href="#ai">AI 创作</a>
             </div>
           </nav>
         </header>
-        
+
         <main className="app-main">
           <Routes>
             <Route path="/" element={<HomePage />} />
             {/* 其他路由将在后续添加 */}
           </Routes>
         </main>
-        
+
         <footer className="app-footer">
-          <p>&copy; 2024 M98 董小姐. All rights reserved.</p>
+          <p>&copy; 2026 M98 董小姐. All rights reserved.</p>
           <div className="footer-links">
             <a href="#privacy">隐私政策</a>
             <a href="#terms">使用条款</a>

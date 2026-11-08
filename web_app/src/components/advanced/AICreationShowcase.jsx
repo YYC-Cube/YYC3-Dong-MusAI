@@ -5,8 +5,9 @@ import styled from 'styled-components';
 const CreationContainer = styled.div`
   background: var(--gradient-card);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-xl);
-  margin: var(--spacing-xl) 0;
+  padding: clamp(1.25rem, 4vw, var(--spacing-xl));
+  margin: var(--spacing-xl) auto;
+  max-width: 1300px;
   backdrop-filter: blur(10px);
   border: var(--border-primary);
   position: relative;
@@ -34,7 +35,7 @@ const ContentWrapper = styled.div`
 
 const SectionTitle = styled.h2`
   color: var(--text-primary);
-  font-size: var(--text-3xl);
+  font-size: clamp(1.8rem, 4vw, var(--text-3xl));
   font-weight: 600;
   margin-bottom: var(--spacing-lg);
   text-align: center;
@@ -46,17 +47,26 @@ const SectionTitle = styled.h2`
 
 const CreationSteps = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-xl);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, var(--spacing-lg));
   margin-bottom: var(--spacing-xl);
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const StepCard = styled(motion.div)`
   background: rgba(22, 27, 34, 0.9);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
+  padding: clamp(1rem, 2.5vw, var(--spacing-lg));
   border: 1px solid rgba(139, 148, 158, 0.2);
   transition: var(--transition-fast);
+  min-width: 0;
   
   &:hover {
     border-color: var(--primary-purple);
@@ -90,6 +100,7 @@ const StepDescription = styled.p`
   color: var(--text-secondary);
   line-height: 1.6;
   margin: 0 0 var(--spacing-md) 0;
+  overflow-wrap: anywhere;
 `;
 
 const StepProgress = styled.div`
@@ -115,13 +126,13 @@ const ProgressText = styled.div`
 const DemoSection = styled.div`
   background: rgba(22, 27, 34, 0.6);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-xl);
+  padding: clamp(1rem, 3vw, var(--spacing-xl));
   border: 1px solid rgba(138, 43, 226, 0.3);
 `;
 
 const DemoTitle = styled.h3`
   color: var(--text-primary);
-  font-size: var(--text-2xl);
+  font-size: clamp(1.3rem, 3vw, var(--text-2xl));
   font-weight: 600;
   margin: 0 0 var(--spacing-lg) 0;
   text-align: center;
@@ -129,9 +140,13 @@ const DemoTitle = styled.h3`
 
 const InputOutput = styled.div`
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   gap: var(--spacing-lg);
   align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const InputSection = styled.div`
@@ -159,6 +174,7 @@ const ContentText = styled.div`
   color: var(--text-primary);
   line-height: 1.6;
   font-family: 'Courier New', monospace;
+  overflow-wrap: anywhere;
   
   .highlight {
     background: rgba(138, 43, 226, 0.2);
@@ -178,13 +194,28 @@ const TransformIcon = styled(motion.div)`
   justify-content: center;
   font-size: var(--text-2xl);
   color: white;
+  justify-self: center;
+
+  @media (max-width: 768px) {
+    width: 48px;
+    height: 48px;
+    font-size: var(--text-lg);
+  }
 `;
 
 const ToolsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--spacing-lg);
   margin-top: var(--spacing-xl);
+
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const ToolCard = styled(motion.div)`
@@ -194,6 +225,7 @@ const ToolCard = styled(motion.div)`
   border: 1px solid rgba(139, 148, 158, 0.2);
   text-align: center;
   transition: var(--transition-fast);
+  min-width: 0;
   
   &:hover {
     border-color: var(--primary-purple);
@@ -315,7 +347,7 @@ const AICreationShowcase = () => {
   };
 
   return (
-    <CreationContainer>
+    <CreationContainer id="ai">
       <BackgroundPattern />
       <ContentWrapper>
         <SectionTitle>AI音乐创作工坊</SectionTitle>

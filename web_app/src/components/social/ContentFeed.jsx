@@ -48,7 +48,7 @@ const ContentFeed = () => {
   }, [fetchContent]);
 
   return (
-    <ContentFeedContainer>
+    <ContentFeedContainer id="journal">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -154,7 +154,7 @@ const ContentFeed = () => {
 };
 
 const ContentFeedContainer = styled.section`
-  padding: 5rem 2rem;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 4vw, 2rem);
   max-width: 1300px;
   margin: 0 auto;
 

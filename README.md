@@ -22,13 +22,14 @@
   <a href="https://github.com/YYC-Cube/YYC3-Dong-MusAI/actions/workflows/deploy-pages.yml"><img src="https://github.com/YYC-Cube/YYC3-Dong-MusAI/actions/workflows/deploy-pages.yml/badge.svg?branch=main" alt="Deploy Pages"></a>
   <a href="https://musai.yyc3.vip"><img src="https://img.shields.io/badge/live-musai.yyc3.vip-8A2BE2?style=flat-square&logo=githubpages&logoColor=white" alt="Live Site"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-8A2BE2?style=flat-square" alt="License"></a>
-  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.7.0-FF6B6B?style=flat-square" alt="Version"></a>
+  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v2.0.0-FF6B6B?style=flat-square" alt="Version"></a>
 </p>
 
 <p align="center">
-  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-%3E%3D18-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
-  <a href="https://react.dev/"><img src="https://img.shields.io/badge/react-18.2-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React"></a>
-  <a href="https://expressjs.com/"><img src="https://img.shields.io/badge/express-4.18-000000?style=flat-square&logo=express&logoColor=white" alt="Express"></a>
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-%3E%3D20.19-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
+  <a href="https://react.dev/"><img src="https://img.shields.io/badge/react-19.3-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React"></a>
+  <a href="https://vite.dev/"><img src="https://img.shields.io/badge/vite-8.3-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite"></a>
+  <a href="https://expressjs.com/"><img src="https://img.shields.io/badge/express-5.3-000000?style=flat-square&logo=express&logoColor=white" alt="Express"></a>
   <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/postgresql-15-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL"></a>
   <a href="https://docs.github.com/pages"><img src="https://img.shields.io/badge/deploy-GitHub%20Pages-222222?style=flat-square&logo=github&logoColor=white" alt="GitHub Pages"></a>
 </p>
@@ -90,12 +91,12 @@
 | 仓库名 | `YYC3-Dong-MusAI` |
 | 艺人 | 董小姐（艺名 M98） |
 | 定位 | 音乐人官网 + 粉丝社区 + 数据洞察 + AI 创作展示 |
-| 技术栈 | React 18 · Vue 3 · Express 4 · PostgreSQL 15 · Docker |
+| 技术栈 | React 19 · Vite 8 · Vue 3.5 · Express 5 · PostgreSQL 15 · Docker |
 | 数据源 | 主库 `yyc3_music`（PG15，`yanyu@localhost:5433` 本机免密，NAS Docker `yyc3-music`） |
 | 交付形态 | GitHub Pages 静态站 + 可独立部署的全栈服务 |
 | 品牌主色 | `#8A2BE2` 紫罗兰 × `#FF6B6B` 珊瑚红 × `#0D1117` 深空黑 |
 
-**核心标签**：`东方电子` `音乐人生态` `粉丝互动` `React SPA` `Express API` `PostgreSQL` `GitHub Pages` `YYC³`
+**核心标签**：`东方电子` `音乐人生态` `粉丝互动` `React 19` `Vite 8` `Express 5` `PostgreSQL` `GitHub Pages` `YYC³`
 
 ---
 
@@ -111,7 +112,7 @@
 | 虚拟演出 | VR / 直播 / 音乐节 | 🟡 |
 | 数据看板 | 听众、播放、收入示意 | 🟡 |
 | 社交聚合 | 微博 / 抖音 / B站 / 小红书 | 🟡 |
-| 管理后台 | 登录、JWT 鉴权、总览看板（Vue 3 + Vite + TS） | 🟡 MVP |
+| 管理后台 | 登录、JWT 鉴权、总览看板（Vue 3.5 + Vite 8 + TS 5.9） | 🟡 MVP |
 | 移动端 | iOS / Android | ⬜ 规划中 |
 | AI 创作 | 歌词 / 旋律生成 | 🟡 展示层 |
 | 天气 MCP | Python FastMCP 助手 | ✅ 独立 |
@@ -132,7 +133,7 @@ flowchart TB
 
   subgraph E["边缘交付层 · GitHub Pages"]
     CDN["全球 CDN · HTTPS"]
-    SPA["React 18 SPA<br/>CRA Production Build"]
+    SPA["React 19 SPA<br/>Vite Production Build"]
   end
 
   subgraph A["应用服务层 · Express :4000"]
@@ -149,7 +150,7 @@ flowchart TB
     ASSETS["封面 · 海报 · 音频 · 多端图标"]
   end
 
-  ADMIN["Vue 3 管理后台 :3032"]
+  ADMIN["Vue 3.5 管理后台 :3032"]
 
   BROWSER --> CDN --> SPA
   SPA -->|"HTTPS / JSON"| ROUTES
@@ -164,12 +165,12 @@ flowchart TB
 ```mermaid
 flowchart LR
   subgraph FE["前端"]
-    W["web_app<br/>React 18"]
-    AD["admin_panel<br/>Vue 3 + Vite"]
+    W["web_app<br/>React 19 + Vite 8"]
+    AD["admin_panel<br/>Vue 3.5 + Vite 8"]
   end
 
   subgraph BE["后端"]
-    API["api_service<br/>Express 4"]
+    API["api_service<br/>Express 5"]
   end
 
   subgraph DATA["数据与资产"]
@@ -218,11 +219,11 @@ sequenceDiagram
 ```text
 YYC3-Dong-MusAI/
 ├── .github/          CI · Pages · CodeQL · Dependabot · Issue/PR 模板
-├── web_app/          React 18 粉丝网站（Pages 部署对象）
+├── web_app/          React 19 + Vite 8 粉丝网站（Pages 部署对象）
 ├── api_service/      Express API（PostgreSQL 唯一入口）
 ├── content_db/       开发数据库与种子数据
 ├── database/         PostgreSQL 迁移脚本 + SQLite 迁移源（归档）
-├── admin_panel/      Vue 3 管理后台（登录 + 总览 MVP）
+├── admin_panel/      Vue 3.5 + Vite 8 管理后台（登录 + 总览 MVP）
 ├── mobile_app/       移动端（规划中）
 ├── marketing_tools/  营销自动化（规划中）
 ├── weather/          Python MCP 天气助手
@@ -238,7 +239,7 @@ YYC3-Dong-MusAI/
 
 ### 环境要求
 
-- Node.js ≥ 18（推荐 20 / 22 LTS）
+- Node.js ≥ 20.19（推荐 22 LTS）
 - npm ≥ 9
 - PostgreSQL 15（`yyc3_music`，端口 `5433`；NAS Docker `yyc3-music`）
 
@@ -369,7 +370,7 @@ docker compose up -d --build
 
 > 引用规范见 [资源引用规范](./docs/08-YYC3-项目整合-实施阶段/0801-YYC3-项目整合-资源引用规范.md)，资产登记见 [媒体资产清单](./docs/09-YYC3-项目资产-知识管理/0901-YYC3-项目资产-媒体资产清单.md)。
 
-> **资产同步**：CRA 仅服务 `web_app/public`，`npm start` / `npm run build` 会通过 `prestart` / `prebuild` 自动执行 `scripts/sync-assets.js`，把根 `public/` 的白名单资产（含 `CNAME`）同步过去；也可手动执行 `npm run sync:assets`。
+> **资产同步**：Vite 服务 `web_app/public`，`npm start` / `npm run build` 会通过 `prestart` / `prebuild` 自动执行 `scripts/sync-assets.js`，把根 `public/` 的白名单资产（含 `CNAME`）同步过去；也可手动执行 `npm run sync:assets`。
 
 ---
 
@@ -413,11 +414,12 @@ docker compose up -d --build
 | 检查 | 执行方式 | 状态 |
 | ---- | ---- | :--: |
 | 静态校验（JSON / API 语法 / CNAME） | `ci.yml · static` | ✅ |
-| 前端生产构建（CI=true） | `ci.yml · web` | ✅ |
-| 前端单元测试 | `web_app/npm test` | ✅ |
+| 前端生产构建（Vite 8） | `ci.yml · web` | ✅ |
+| 前端单元测试（Vitest 5） | `web_app/npm test` | ✅ |
 | 后端单元/接口测试（2 suites / 17 tests） | `api_service/npm test` | ✅ |
 | PG API 冒烟（10 读 + 写 + 边界） | `api_service/npm test` | ✅ |
 | 管理后台类型检查与构建 | `ci.yml · admin` | ✅ |
+| 多视口 UI 审计（1440 / 1024 / 390） | Playwright | ✅ |
 | CodeQL 安全扫描 | `codeql.yml` | ✅ |
 | 依赖漏洞扫描 | Dependabot + `npm audit` | 🟡 |
 | E2E / 性能 / 兼容性 | 待接入 | ⏸ |
@@ -427,8 +429,8 @@ docker compose up -d --build
 find api_service/src -type f -name "*.js" -exec node --check {} \;
 grep -rn "/assets/" web_app/src || echo "资源引用通过"
 
-# 前端构建与测试
-cd web_app && CI=true npm run build && CI=true npm test -- --watchAll=false
+# 前端构建与测试（Vite 8 + Vitest 5）
+cd web_app && npm run build && npm test
 
 # 后端测试（需 PostgreSQL 15）
 cd api_service && npm test
@@ -444,8 +446,8 @@ cd api_service && npm test
 | ---- | ---- | :--: |
 | M0 | 基线冻结（Git / 文档 / 远程仓库） | ✅ |
 | M1 | 止血（P0 修复 / 资源接线 / 密钥治理） | ✅ |
-| M2 | 工程化（CI / Pages / 测试 / Docker；Vite + TS 待推进） | 🟡 |
-| M3 | 体验完善（响应式 / 空态 / 无障碍） | ⬜ |
+| M2 | 工程化（Vite 8 / React 19 / Vitest / CI / Pages / Docker） | ✅ |
+| M3 | 体验完善（响应式已完成；空态 / 无障碍待推进） | 🟡 |
 | M4 | 生态扩展（后台 / 移动端 / AI 服务） | ⬜ |
 
 详见 [技术债与演进路线](./docs/11-YYC3-智能演进-优化阶段/1101-YYC3-智能演进-技术债与演进路线.md)。
@@ -493,14 +495,14 @@ release/*   发布
 
 ```text
 yyc3  m98  dongxiaojie  music  music-platform  fan-platform
-react  express  postgresql  github-pages  ci-cd  open-source
+react  vite  express  postgresql  github-pages  ci-cd  open-source
 ai-music  eastern-electronic  yyc3-standard
 ```
 
 **About 描述**
 
 ```text
-M98 董小姐音乐宇宙 · 东方电子音乐人生态 | React 18 + Express + PostgreSQL 15 | GitHub Pages: https://musai.yyc3.vip
+M98 董小姐音乐宇宙 · 东方电子音乐人生态 | React 19 + Vite 8 + Express 5 + PostgreSQL 15 | GitHub Pages: https://musai.yyc3.vip
 ```
 
 **同步命令**
@@ -514,6 +516,7 @@ gh api -X PUT repos/YYC-Cube/YYC3-Dong-MusAI/topics \
   -f "names[]=music-platform" \
   -f "names[]=fan-platform" \
   -f "names[]=react" \
+  -f "names[]=vite" \
   -f "names[]=express" \
   -f "names[]=postgresql" \
   -f "names[]=github-pages" \
