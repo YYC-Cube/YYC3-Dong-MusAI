@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import { resolvePoster } from '../../config/assets';
+import { FALLBACK_EXCLUSIVE_CONTENT, PREFER_LOCAL_FALLBACK } from '../../config/fallbackData';
 import apiService from '../../services/apiService';
 
 const ExclusiveContent = () => {
@@ -10,17 +11,22 @@ const ExclusiveContent = () => {
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   const fetchContent = useCallback(async () => {
     setLoading(true);
-    setError('');
+
+    if (PREFER_LOCAL_FALLBACK) {
+      setItems(FALLBACK_EXCLUSIVE_CONTENT);
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await apiService.getExclusiveContent();
       setItems(response.data.data || []);
     } catch (err) {
-      console.error('独家内容加载失败:', err);
-      setError('独家内容加载失败，请稍后重试');
+      console.warn('独家内容 API 不可达，使用本地静态数据:', err.message);
+      setItems(FALLBACK_EXCLUSIVE_CONTENT);
     } finally {
       setLoading(false);
     }
@@ -110,13 +116,7 @@ const ExclusiveContent = () => {
       )}
 
       {loading && <div className="content-status">正在加载独家内容…</div>}
-      {error && (
-        <div className="content-status error">
-          <span>{error}</span>
-          <button type="button" onClick={fetchContent}>重试</button>
-        </div>
-      )}
-      {!loading && !error && exclusiveContent.length === 0 && (
+      {!loading && exclusiveContent.length === 0 && (
         <div className="content-status">暂无独家内容</div>
       )}
 

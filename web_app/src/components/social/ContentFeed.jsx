@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import apiService from '../../services/apiService';
+import { FALLBACK_BLOG_POSTS, FALLBACK_EVENTS, PREFER_LOCAL_FALLBACK } from '../../config/fallbackData';
 import { resolvePoster } from '../../config/assets';
 
 const STATUS_LABELS = {
@@ -15,11 +16,17 @@ const ContentFeed = () => {
   const [blogPosts, setBlogPosts] = useState([]);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   const fetchContent = useCallback(async () => {
     setLoading(true);
-    setError('');
+
+    if (PREFER_LOCAL_FALLBACK) {
+      setBlogPosts(FALLBACK_BLOG_POSTS);
+      setEvents(FALLBACK_EVENTS);
+      setLoading(false);
+      return;
+    }
+
     try {
       const [blogResponse, eventResponse] = await Promise.all([
         apiService.getBlogPosts(),
@@ -28,8 +35,9 @@ const ContentFeed = () => {
       setBlogPosts(blogResponse.data.data || []);
       setEvents(eventResponse.data.data || []);
     } catch (err) {
-      console.error('内容加载失败:', err);
-      setError('内容加载失败，请稍后重试');
+      console.warn('内容 API 不可达，使用本地静态数据:', err.message);
+      setBlogPosts(FALLBACK_BLOG_POSTS);
+      setEvents(FALLBACK_EVENTS);
     } finally {
       setLoading(false);
     }
@@ -54,14 +62,8 @@ const ContentFeed = () => {
       </p>
 
       {loading && <div className="content-status">正在加载内容…</div>}
-      {error && (
-        <div className="content-status error">
-          <span>{error}</span>
-          <button type="button" onClick={fetchContent}>重试</button>
-        </div>
-      )}
 
-      {!loading && !error && (
+      {!loading && (
         <div className="feed-grid">
           <section className="feed-column">
             <div className="column-head">

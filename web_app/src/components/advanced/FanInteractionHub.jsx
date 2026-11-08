@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import apiService from '../../services/apiService';
+import { FALLBACK_FEEDBACKS, PREFER_LOCAL_FALLBACK } from '../../config/fallbackData';
 
 const InteractionContainer = styled.div`
   background: var(--gradient-card);
@@ -231,11 +232,17 @@ const FanInteractionHub = () => {
   }, []);
 
   const loadFeedbacks = async () => {
+    if (PREFER_LOCAL_FALLBACK) {
+      setFeedbacks(FALLBACK_FEEDBACKS);
+      return;
+    }
+
     try {
       const response = await apiService.getFanMessages();
       setFeedbacks(response.data || []);
     } catch (error) {
-      console.error('加载反馈失败:', error);
+      console.warn('粉丝反馈 API 不可达，使用本地静态数据:', error.message);
+      setFeedbacks(FALLBACK_FEEDBACKS);
     }
   };
 

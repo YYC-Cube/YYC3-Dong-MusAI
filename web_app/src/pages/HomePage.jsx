@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import apiService from '../services/apiService';
 import ASSETS, { resolveCover } from '../config/assets';
-import { FALLBACK_ARTIST, FALLBACK_RELEASES, FALLBACK_FANS_WALL } from '../config/fallbackData';
+import { FALLBACK_ARTIST, FALLBACK_RELEASES, FALLBACK_FANS_WALL, PREFER_LOCAL_FALLBACK } from '../config/fallbackData';
 import DynamicBackground from '../components/advanced/DynamicBackground';
 import AdvancedMusicPlayer from '../components/advanced/AdvancedMusicPlayer';
 import FanInteractionHub from '../components/advanced/FanInteractionHub';
@@ -13,11 +13,6 @@ import AICreationShowcase from '../components/advanced/AICreationShowcase';
 import MusicDataAnalytics from '../components/advanced/MusicDataAnalytics';
 import ExclusiveContent from '../components/social/ExclusiveContent';
 import ContentFeed from '../components/social/ContentFeed';
-
-// 生产/测试环境未配置 API 地址时直接使用本地静态数据，避免 Pages 站点进入错误页
-const PREFER_LOCAL_FALLBACK =
-  !process.env.REACT_APP_API_BASE_URL &&
-  ['production', 'test'].includes(process.env.NODE_ENV);
 
 // 音乐可视化组件
 const MusicVisualizer = ({ isPlaying, trackData }) => {

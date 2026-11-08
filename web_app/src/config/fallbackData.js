@@ -15,10 +15,16 @@
  * - 仅提供展示所需字段，不参与写操作
  *
  * dependencies: ./assets
- * exports: FALLBACK_ARTIST, FALLBACK_RELEASES, FALLBACK_FANS_WALL
+ * exports: PREFER_LOCAL_FALLBACK, FALLBACK_ARTIST, FALLBACK_RELEASES, FALLBACK_FANS_WALL,
+ *          FALLBACK_FEEDBACKS, FALLBACK_EXCLUSIVE_CONTENT, FALLBACK_BLOG_POSTS, FALLBACK_EVENTS
  */
 
 import ASSETS from './assets';
+
+// 生产/测试环境未配置 API 地址时直接使用本地静态数据，避免 Pages 站点进入错误页
+export const PREFER_LOCAL_FALLBACK =
+  !process.env.REACT_APP_API_BASE_URL &&
+  ['production', 'test'].includes(process.env.NODE_ENV);
 
 export const FALLBACK_ARTIST = {
   artistId: 'M98',
@@ -92,8 +98,122 @@ export const FALLBACK_FANS_WALL = [
   },
 ];
 
+export const FALLBACK_FEEDBACKS = FALLBACK_FANS_WALL.map((item, index) => ({
+  name: item.username,
+  timestamp: item.createdAt,
+  emotion: ['治愈', '共鸣', '星夜', '温柔'][index % 4],
+  message: item.message,
+}));
+
+export const FALLBACK_EXCLUSIVE_CONTENT = [
+  {
+    id: 'fallback-exclusive-1',
+    title: '《浮生如渡》幕后制作手记',
+    type: 'behind-scenes',
+    thumbnail: ASSETS.posters[0],
+    description: '从东方五声音阶到电子合成器，记录这首歌的诞生过程。',
+    duration: '08:24',
+    releaseDate: '2026-10-20',
+    isLocked: false,
+    tags: ['幕后花絮', '免费'],
+  },
+  {
+    id: 'fallback-exclusive-2',
+    title: '《渡心时序》沉浸式试听',
+    type: 'audio',
+    thumbnail: ASSETS.posters[1],
+    description: '戴上耳机，进入一段从渡口到星河的声场旅程。',
+    duration: '04:12',
+    releaseDate: '2026-10-08',
+    isLocked: true,
+    tags: ['音频', '会员专属'],
+  },
+  {
+    id: 'fallback-exclusive-3',
+    title: '音乐哲学：渡船与过客',
+    type: 'philosophy',
+    thumbnail: ASSETS.posters[2],
+    description: '董小姐谈创作中的东方时间观与留白美学。',
+    duration: '06:30',
+    releaseDate: '2026-09-26',
+    isLocked: false,
+    tags: ['音乐哲学', '免费'],
+  },
+  {
+    id: 'fallback-exclusive-4',
+    title: '现场录音：秋风不问梧桐意',
+    type: 'live-session',
+    thumbnail: ASSETS.posters[3],
+    description: '一段来自排练室的即兴现场，保留最真实的呼吸与回响。',
+    duration: '05:48',
+    releaseDate: '2026-09-12',
+    isLocked: true,
+    tags: ['现场录音', '会员专属'],
+  },
+];
+
+export const FALLBACK_BLOG_POSTS = [
+  {
+    id: 'fallback-blog-1',
+    title: '在电子节拍里，保留一盏东方的灯',
+    excerpt: '关于《浮生如渡》的编曲思路与声音采集。',
+    content: '从渡口的采样到合成器的铺底，记录一次东方与电子的相遇。',
+    publishDate: '2026-10-22',
+    readTime: 6,
+    tags: ['创作手记', '编曲'],
+    coverImage: ASSETS.posters[0],
+  },
+  {
+    id: 'fallback-blog-2',
+    title: '从渡口到星河：一场关于时间的现场',
+    excerpt: '记录「渡心时序」沉浸式试听会的幕后。',
+    content: '空间声场、灯光与呼吸，共同构成了一次可以被听见的时间。',
+    publishDate: '2026-10-10',
+    readTime: 4,
+    tags: ['现场', '幕后'],
+    coverImage: ASSETS.posters[1],
+  },
+];
+
+export const FALLBACK_EVENTS = [
+  {
+    id: 'fallback-event-1',
+    title: 'M98 · 渡心时序 沉浸式试听会',
+    description: '东方电子 × 空间声场，限定 120 席。',
+    date: '2026-12-20',
+    location: '上海 · 云枢空间',
+    ticketPrice: '¥198',
+    status: 'upcoming',
+    image: ASSETS.posters[2],
+  },
+  {
+    id: 'fallback-event-2',
+    title: '东方电子音乐夜 · 上海站',
+    description: '与多位电子音乐人共同呈现东方声音的当代表达。',
+    date: '2026-11-28',
+    location: '上海 · MAO Livehouse',
+    ticketPrice: '¥168',
+    status: 'upcoming',
+    image: ASSETS.posters[3],
+  },
+  {
+    id: 'fallback-event-3',
+    title: 'M98 线上直播 · 星河渡口',
+    description: '一小时不间断的现场演出与创作对谈。',
+    date: '2026-11-15',
+    location: '线上 · 视频号 / B站',
+    ticketPrice: '免费',
+    status: 'upcoming',
+    image: ASSETS.posters[4],
+  },
+];
+
 export default {
   artist: FALLBACK_ARTIST,
   releases: FALLBACK_RELEASES,
   fansWall: FALLBACK_FANS_WALL,
+  feedbacks: FALLBACK_FEEDBACKS,
+  exclusiveContent: FALLBACK_EXCLUSIVE_CONTENT,
+  blogPosts: FALLBACK_BLOG_POSTS,
+  events: FALLBACK_EVENTS,
 };
