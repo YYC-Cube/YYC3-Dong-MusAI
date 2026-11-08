@@ -109,13 +109,13 @@ Pages 静态站点可能无法访问 `api_service`。前端按以下策略保证
 
 [`deploy-pages.yml`](../../.github/workflows/deploy-pages.yml) 关键步骤：
 
-1. `actions/checkout@v4`
-2. `actions/setup-node@v4`（Node 22 + npm 缓存）
-3. `actions/configure-pages@v5`
+1. `actions/checkout@v7`
+2. `actions/setup-node@v7`（Node 22 + npm 缓存）
+3. `actions/configure-pages@v6`
 4. `npm ci` → `npm run build`（`CI=true`）
 5. 校验 `web_app/build/CNAME` 等于 `musai.yyc3.vip`
-6. `actions/upload-pages-artifact@v3` 上传 `web_app/build`
-7. `actions/deploy-pages@v4` 发布，`environment: github-pages`
+6. `actions/upload-pages-artifact@v5` 上传 `web_app/build`
+7. `actions/deploy-pages@v5` 发布，`environment: github-pages`
 
 并发策略：`group: pages`，`cancel-in-progress: false`，避免生产发布被中途取消。
 
