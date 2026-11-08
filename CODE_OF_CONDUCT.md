@@ -1,5 +1,15 @@
 # 贡献者公约（Contributor Covenant）行为准则
 
+> **_YYC³_**（YanYuCloudCube™ · 注册商标）
+> _言启象限 | 语枢未来_
+> **_Words Initiate Quadrants, Language Serves as Core for Future_**
+> _万象归元于云枢 | 深栈智启新纪元_
+> **_All things converge in cloud pivot; Deep stacks ignite a new era of intelligence_**
+
+**适用范围**：[YYC-Cube/YYC3-Dong-MusAI](https://github.com/YYC-Cube/YYC3-Dong-MusAI) 仓库、Issue、Pull Request、Discussions、Actions 讨论区、线上站点及项目组织的所有社区空间。
+
+---
+
 ## 我们的承诺
 
 为了营造开放、友好、包容的社区环境，我们作为贡献者与维护者承诺：无论年龄、体型、可见或不可见的残障、族裔、性别认同与表达、经验水平、教育程度、社会经济状况、国籍、个人外貌、种族、宗教或性认同与取向，参与本项目的每个人都应享有**无骚扰**的体验。
@@ -24,6 +34,7 @@
 - 挑衅、侮辱或贬损性评论，以及人身或政治攻击
 - 公开或私下的骚扰
 - 未经明确许可，发布他人的私人信息（如物理地址或电子邮箱）
+- 在 Issue / PR 中恶意刷屏、提交无关内容或故意浪费维护者时间
 - 其他在专业场合可被合理认定为不当的行为
 
 ---
@@ -40,16 +51,37 @@
 
 本行为准则适用于所有社区空间，也适用于个人在公共场合正式代表社区的情形。代表社区的情形包括：使用官方电子邮箱、通过官方社交媒体账号发言、在线上或线下活动中担任指定代表。
 
+具体包括但不限于：
+
+- GitHub 仓库中的 Issue、Pull Request、Review、Discussions 与 Release 评论
+- GitHub Actions 运行日志与构建产物中的公开交流内容
+- 项目邮件列表、即时通讯群组与线上/线下活动
+- 以项目名义在第三方平台（微博 / 抖音 / B站 / 小红书等）发布的内容
+
 ---
 
 ## 问题上报
 
 任何滥用、骚扰或其他不可接受行为，可通过以下渠道向执行团队报告：
 
-- **邮箱**：admin@0379.email
-- **主题**：`[M98 CoC] 行为准则报告`
+| 渠道 | 地址 | 适用 |
+| ---- | ---- | ---- |
+| 团队邮箱 | [admin@0379.email](mailto:admin@0379.email) | 行为准则、社区冲突 |
+| 邮件主题 | `[M98 CoC] 行为准则报告` | 便于分流与追踪 |
+| GitHub 举报 | [Report abuse](https://github.com/contact/report-abuse) | 平台层面的骚扰或滥用 |
 
-所有投诉将被及时、公正地审查与调查。维护者有义务尊重报告者的隐私与安全。
+报告请尽量包含：发生时间、涉及账号、上下文链接、截图或日志，以及你期望的处理方式。
+
+所有投诉将被及时、公正地审查与调查。维护者有义务尊重报告者的隐私与安全；未经报告者同意，不会公开其身份。
+
+### 响应时限
+
+| 阶段 | 目标 |
+| ---- | ---- |
+| 确认收到 | 48 小时内 |
+| 初步评估 | 5 个工作日内 |
+| 处理决定 | 10 个工作日内 |
+| 申诉复核 | 收到申诉后 10 个工作日内 |
 
 ---
 
@@ -62,6 +94,8 @@
 | 3. 临时封禁 | 严重违规或持续不当行为 | 在一段时间内禁止与社区进行任何形式的互动或公开沟通 |
 | 4. 永久封禁 | 表现出持续违规、骚扰个人、或对群体进行攻击或贬低 | 永久禁止参与社区 |
 
+执行决定将记录在处理台账中，并在保护隐私的前提下向相关方说明依据。被处理方可在收到决定后 10 个工作日内提出申诉。
+
 ---
 
 ## 归属
@@ -70,8 +104,20 @@
 
 ---
 
+## 变更历史
+
+| 版本 | 日期 | 变更内容 | 作者 |
+| ---- | ---- | -------- | ---- |
+| v1.1.0 | 2026-11-09 | 补充仓库适用范围、GitHub 举报渠道、响应时限与申诉机制 | YYC³ Team |
+| v1.0.0 | 2026-11-07 | 首次发布，基于 Contributor Covenant 2.1 | YYC³ Team |
+
+---
+
 <p align="center">
   <b>YYC³</b>（YanYuCloudCube™ · 注册商标）<br>
   言启象限 | 语枢未来<br>
+  <i>Words Initiate Quadrants, Language Serves as Core for Future</i><br>
+  万象归元于云枢 | 深栈智启新纪元<br>
+  <i>All things converge in cloud pivot; Deep stacks ignite a new era of intelligence</i><br>
   <sub>© 2026 YanYuCloudCube™（YYC³）· <a href="mailto:admin@0379.email">admin@0379.email</a></sub>
 </p>

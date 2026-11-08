@@ -3,9 +3,9 @@ file: README.md
 title: M98 董小姐音乐宇宙 — 文档目录索引
 description: M98 项目文档总索引 — 十二阶段分类、标规对齐、追溯关系与遗留文档归档
 author: YYC³ Team <admin@0379.email>
-version: v1.1.4
+version: v1.2.0
 created: 2026-11-07
-updated: 2026-11-07
+updated: 2026-11-09
 status: stable
 tags: [index, navigation, standard, traceability]
 category: general
@@ -83,7 +83,8 @@ docs/
 ├── 05-YYC3-项目部署-文档闭环/
 │   ├── 0501-YYC3-项目部署-部署运维指南.md
 │   ├── 0502-YYC3-项目部署-环境变量手册.md
-│   └── 0503-YYC3-项目部署-PostgreSQL适配与迁移指南.md
+│   ├── 0503-YYC3-项目部署-PostgreSQL适配与迁移指南.md
+│   └── 0504-YYC3-项目部署-GitHubPages与CI-CD指南.md
 ├── 06-YYC3-项目运营-维护阶段/
 │   └── 0601-YYC3-项目运营-协作对接指引.md
 ├── 07-YYC3-项目合规-安全保障/
@@ -132,6 +133,7 @@ docs/
 | 0501 | [部署运维指南](./05-YYC3-项目部署-文档闭环/0501-YYC3-项目部署-部署运维指南.md) | devops | stable | 运维/开发 |
 | 0502 | [环境变量手册](./05-YYC3-项目部署-文档闭环/0502-YYC3-项目部署-环境变量手册.md) | reference | stable | 开发/运维 |
 | 0503 | [PostgreSQL 适配与迁移指南](./05-YYC3-项目部署-文档闭环/0503-YYC3-项目部署-PostgreSQL适配与迁移指南.md) | technical | stable | 开发/DBA |
+| 0504 | [GitHub Pages 与 CI/CD 指南](./05-YYC3-项目部署-文档闭环/0504-YYC3-项目部署-GitHubPages与CI-CD指南.md) | devops | stable | 开发/运维 |
 | 0601 | [协作对接指引](./06-YYC3-项目运营-维护阶段/0601-YYC3-项目运营-协作对接指引.md) | project | stable | 全员 |
 | 0701 | [安全审计报告](./07-YYC3-项目合规-安全保障/0701-YYC3-项目合规-安全审计报告.md) | policy | stable | 安全/开发 |
 | 0801 | [资源引用规范](./08-YYC3-项目整合-实施阶段/0801-YYC3-项目整合-资源引用规范.md) | technical | stable | 前端/设计 |
@@ -149,7 +151,7 @@ docs/
 | 首次接触项目 | 001 → 0401 → 0201 → 0302 |
 | 日常开发 | 0302 → 0201 → 0801 → 0301 |
 | 测试与验收 | 0402 → 0401 → 0701 |
-| 部署与运维 | 0501 → 0502 → 0503 → 0701 → 0601 |
+| 部署与运维 | 0501 → 0502 → 0503 → 0504 → 0701 → 0601 |
 | 运营与内容 | 1201 → 0901 → 0801 |
 | 管理者决策 | 0401 → 1101 → 0601 |
 
@@ -237,7 +239,10 @@ docs/
 
 ## 七、仓库标签与关键词
 
-**建议 GitHub Topics**：`yyc3` `m98` `dongxiaojie` `music-app` `react` `express` `sqlite` `mongodb` `fan-platform` `ai-music` `eastern-electronic` `open-source`
+**远程仓库**：[https://github.com/YYC-Cube/YYC3-Dong-MusAI](https://github.com/YYC-Cube/YYC3-Dong-MusAI)
+**线上站点**：[https://musai.yyc3.vip](https://musai.yyc3.vip)
+
+**GitHub Topics**：`yyc3` `m98` `dongxiaojie` `music` `music-platform` `fan-platform` `react` `express` `postgresql` `github-pages` `ci-cd` `open-source` `ai-music` `eastern-electronic` `yyc3-standard`
 
 **文档关键词**：言启象限 · 语枢未来 · 万象归元于云枢 · 深栈智启新纪元 · 五高五标五化五维 · 东方电子音乐 · 音乐人生态
 
@@ -247,6 +252,7 @@ docs/
 
 | 版本 | 日期 | 变更内容 | 作者 |
 | ---- | ---- | -------- | ---- |
+| v1.2.0 | 2026-11-09 | 新增 0504 GitHub Pages 与 CI/CD 指南；登记远程仓库与线上站点；Topics 更新为 PostgreSQL / GitHub Pages / CI-CD | YYC³ Team |
 | v1.1.4 | 2026-11-07 | 记录前端内容 API 接入与 Mongo/SQLite/Mock 入口下线 | YYC³ Team |
 | v1.1.3 | 2026-11-07 | 内容接口切换 PG 并建立 PG 测试库 | YYC³ Team |
 | v1.1.2 | 2026-11-07 | 记录 PostgreSQL 查询层与默认入口切换 | YYC³ Team |

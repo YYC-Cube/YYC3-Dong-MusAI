@@ -14,42 +14,86 @@
 </p>
 
 <p align="center">
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-8A2BE2?style=flat-square" alt="License"></a>
-  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.6.0-FF6B6B?style=flat-square" alt="Version"></a>
-  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-%3E%3D18-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
-  <a href="https://react.dev/"><img src="https://img.shields.io/badge/react-18.2-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React"></a>
-  <a href="https://expressjs.com/"><img src="https://img.shields.io/badge/express-4.18-000000?style=flat-square&logo=express&logoColor=white" alt="Express"></a>
-  <a href="./docs/README.md"><img src="https://img.shields.io/badge/docs-YYC%C2%B3%20standard-00A1D6?style=flat-square" alt="Docs"></a>
-  <a href="./CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" alt="PRs Welcome"></a>
-  <a href="./SECURITY.md"><img src="https://img.shields.io/badge/security-policy-critical?style=flat-square" alt="Security"></a>
+  一个以「东方电子音乐」为灵魂、以数字空间为载体的音乐人生态：<b>可看、可听、可互动、可度量、可演进</b>。
 </p>
 
 <p align="center">
-  <a href="#-项目画像">项目画像</a> ·
+  <a href="https://github.com/YYC-Cube/YYC3-Dong-MusAI/actions/workflows/ci.yml"><img src="https://github.com/YYC-Cube/YYC3-Dong-MusAI/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
+  <a href="https://github.com/YYC-Cube/YYC3-Dong-MusAI/actions/workflows/deploy-pages.yml"><img src="https://github.com/YYC-Cube/YYC3-Dong-MusAI/actions/workflows/deploy-pages.yml/badge.svg?branch=main" alt="Deploy Pages"></a>
+  <a href="https://musai.yyc3.vip"><img src="https://img.shields.io/badge/live-musai.yyc3.vip-8A2BE2?style=flat-square&logo=githubpages&logoColor=white" alt="Live Site"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-8A2BE2?style=flat-square" alt="License"></a>
+  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/version-v1.7.0-FF6B6B?style=flat-square" alt="Version"></a>
+</p>
+
+<p align="center">
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-%3E%3D18-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
+  <a href="https://react.dev/"><img src="https://img.shields.io/badge/react-18.2-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React"></a>
+  <a href="https://expressjs.com/"><img src="https://img.shields.io/badge/express-4.18-000000?style=flat-square&logo=express&logoColor=white" alt="Express"></a>
+  <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/postgresql-15-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL"></a>
+  <a href="https://docs.github.com/pages"><img src="https://img.shields.io/badge/deploy-GitHub%20Pages-222222?style=flat-square&logo=github&logoColor=white" alt="GitHub Pages"></a>
+</p>
+
+<p align="center">
+  <a href="./docs/README.md"><img src="https://img.shields.io/badge/docs-YYC%C2%B3%20standard-00A1D6?style=flat-square" alt="Docs"></a>
+  <a href="./CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" alt="PRs Welcome"></a>
+  <a href="./CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/community-CoC%202.1-4B32C3?style=flat-square" alt="Code of Conduct"></a>
+  <a href="./SECURITY.md"><img src="https://img.shields.io/badge/security-policy-critical?style=flat-square" alt="Security"></a>
+  <a href="https://github.com/YYC-Cube/YYC3-Dong-MusAI/commits/main"><img src="https://img.shields.io/github/last-commit/YYC-Cube/YYC3-Dong-MusAI?style=flat-square&color=8A2BE2" alt="Last Commit"></a>
+</p>
+
+<p align="center">
+  <a href="#-在线体验">在线体验</a> ·
   <a href="#-核心能力">核心能力</a> ·
+  <a href="#-可视化架构">可视化架构</a> ·
   <a href="#-快速开始">快速开始</a> ·
-  <a href="#-资产体系">资产体系</a> ·
+  <a href="#-部署与-cicd">部署与 CI/CD</a> ·
   <a href="#-文档矩阵">文档矩阵</a> ·
   <a href="#-贡献与治理">贡献与治理</a>
 </p>
 
 ---
 
-## 一句话画像
+> **_YYC³_**（YanYuCloudCube™ · 注册商标）
+> _言启象限 | 语枢未来_
+> **_Words Initiate Quadrants, Language Serves as Core for Future_**
+> _万象归元于云枢 | 深栈智启新纪元_
+> **_All things converge in cloud pivot; Deep stacks ignite a new era of intelligence_**
 
-> 一个以「东方电子音乐」为灵魂、以数字空间为载体的音乐人生态：**可看、可听、可互动、可度量、可演进**。
+**五高架构**：高可用 | 高性能 | 高安全 | 高扩展 | 高智能
+**五标体系**：标准化 | 规范化 | 自动化 | 可视化 | 智能化
+**五化转型**：流程化 | 数字化 | 生态化 | 工具化 | 服务化
+**五维评估**：时间维 | 空间维 | 属性维 | 事件维 | 关联维
+
+---
+
+## 🌐 在线体验
+
+| 入口 | 地址 | 说明 |
+| ---- | ---- | ---- |
+| 官方网站 | [https://musai.yyc3.vip](https://musai.yyc3.vip) | GitHub Pages · 自定义域名 · HTTPS |
+| 代码仓库 | [YYC-Cube/YYC3-Dong-MusAI](https://github.com/YYC-Cube/YYC3-Dong-MusAI) | 主仓库 · `main` 为生产分支 |
+| CI 流水线 | [Actions · CI](https://github.com/YYC-Cube/YYC3-Dong-MusAI/actions/workflows/ci.yml) | 静态校验 · 构建 · 测试 |
+| 部署流水线 | [Actions · Deploy Pages](https://github.com/YYC-Cube/YYC3-Dong-MusAI/actions/workflows/deploy-pages.yml) | `web_app` → Pages |
+| 安全扫描 | [Actions · CodeQL](https://github.com/YYC-Cube/YYC3-Dong-MusAI/actions/workflows/codeql.yml) | JavaScript / TypeScript |
+
+> Pages 仅承载 `web_app` 静态前端；`api_service` 需独立部署，前端通过 `REACT_APP_API_BASE_URL` 指向 API 地址。
+
+---
+
+## 一句话画像
 
 | 属性 | 内容 |
 | ---- | ---- |
 | 项目名 | M98 董小姐音乐宇宙（M98_DongXiaoJie） |
+| 仓库名 | `YYC3-Dong-MusAI` |
 | 艺人 | 董小姐（艺名 M98） |
 | 定位 | 音乐人官网 + 粉丝社区 + 数据洞察 + AI 创作展示 |
 | 技术栈 | React 18 · Vue 3 · Express 4 · PostgreSQL 15 · Docker |
 | 数据源 | 主库 `yyc3_music`（PG15，`yanyu@localhost:5433` 本机免密，NAS Docker `yyc3-music`） |
-| 当前阶段 | 演示级可用，工程化推进中 |
+| 交付形态 | GitHub Pages 静态站 + 可独立部署的全栈服务 |
 | 品牌主色 | `#8A2BE2` 紫罗兰 × `#FF6B6B` 珊瑚红 × `#0D1117` 深空黑 |
 
-**核心标签**：`东方电子` `音乐人生态` `粉丝互动` `React SPA` `Express API` `YYC³`
+**核心标签**：`东方电子` `音乐人生态` `粉丝互动` `React SPA` `Express API` `PostgreSQL` `GitHub Pages` `YYC³`
 
 ---
 
@@ -72,33 +116,107 @@
 
 ---
 
-## 🏗 架构总览
+## 🏗 可视化架构
 
-```text
-┌──────────────────────────────────────────────────────────────┐
-│                        浏览器 / 移动端                        │
-│   React 18 SPA · framer-motion · styled-components            │
-│   HomePage → components/advanced/* → services/apiService      │
-└───────────────────────────┬──────────────────────────────────┘
-                            │ HTTP / JSON
-┌───────────────────────────▼──────────────────────────────────┐
-│                    Express API（:4000）                       │
-│   /api/artist  /api/music  /api/fans  /api/content            │
-│   helmet · cors · rate-limit · swagger                        │
-├──────────────────────────────────────────────────────────────┤
-│   数据访问：PostgreSQL 15 + m98 schema（唯一入口）             │
-└───────────────────────────┬──────────────────────────────────┘
-                            │
-┌───────────────────────────▼──────────────────────────────────┐
-│   public/D-*  品牌 · 封面 · 海报 · 音乐 · 多端图标            │
-└──────────────────────────────────────────────────────────────┘
+> GitHub 原生渲染 Mermaid，可直接缩放、拖拽与查看节点详情。
+
+### 系统分层
+
+```mermaid
+flowchart TB
+  subgraph U["用户层"]
+    BROWSER["浏览器 / 移动端"]
+  end
+
+  subgraph E["边缘交付层 · GitHub Pages"]
+    CDN["全球 CDN · HTTPS"]
+    SPA["React 18 SPA<br/>CRA Production Build"]
+  end
+
+  subgraph A["应用服务层 · Express :4000"]
+    ROUTES["REST API<br/>artist · music · fans · content"]
+    GUARD["helmet · cors · rate-limit"]
+    SWAGGER["Swagger /docs"]
+  end
+
+  subgraph D["数据层"]
+    PG[("PostgreSQL 15<br/>yyc3_music · m98 schema")]
+  end
+
+  subgraph S["资产层 · public/"]
+    ASSETS["封面 · 海报 · 音频 · 多端图标"]
+  end
+
+  ADMIN["Vue 3 管理后台 :3032"]
+
+  BROWSER --> CDN --> SPA
+  SPA -->|"HTTPS / JSON"| ROUTES
+  SPA --> ASSETS
+  ADMIN -->|"JWT"| ROUTES
+  ROUTES --> GUARD --> PG
+  ROUTES --> SWAGGER
 ```
+
+### 模块依赖
+
+```mermaid
+flowchart LR
+  subgraph FE["前端"]
+    W["web_app<br/>React 18"]
+    AD["admin_panel<br/>Vue 3 + Vite"]
+  end
+
+  subgraph BE["后端"]
+    API["api_service<br/>Express 4"]
+  end
+
+  subgraph DATA["数据与资产"]
+    DB[("PostgreSQL 15")]
+    AS["public/<br/>品牌与媒体资产"]
+    MIG["database/<br/>迁移脚本"]
+  end
+
+  W --> API
+  AD --> API
+  API --> DB
+  MIG --> DB
+  W --> AS
+  AD --> AS
+```
+
+<details>
+<summary><b>展开 · CI/CD 时序（push → 测试 → Pages → 线上）</b></summary>
+
+```mermaid
+sequenceDiagram
+  autonumber
+  actor DEV as 开发者
+  participant GH as GitHub · main
+  participant CI as Actions · CI
+  participant PG as PostgreSQL 15
+  participant PD as Actions · Pages
+  participant CDN as musai.yyc3.vip
+
+  DEV->>GH: git push / Pull Request
+  GH->>CI: 触发 CI
+  CI->>CI: 静态校验 · Web build/test
+  CI->>PG: API 集成测试
+  CI->>CI: Admin typecheck/build
+  CI-->>GH: Check 状态
+  GH->>PD: main 变更触发部署
+  PD->>PD: npm run build + CNAME 校验
+  PD->>CDN: deploy-pages（OIDC）
+  CDN-->>DEV: 线上验收
+```
+
+</details>
 
 ### 目录结构
 
 ```text
-M-DongXiaoJie/
-├── web_app/          React 18 粉丝网站
+YYC3-Dong-MusAI/
+├── .github/          CI · Pages · CodeQL · Dependabot · Issue/PR 模板
+├── web_app/          React 18 粉丝网站（Pages 部署对象）
 ├── api_service/      Express API（PostgreSQL 唯一入口）
 ├── content_db/       开发数据库与种子数据
 ├── database/         PostgreSQL 迁移脚本 + SQLite 迁移源（归档）
@@ -107,7 +225,7 @@ M-DongXiaoJie/
 ├── marketing_tools/  营销自动化（规划中）
 ├── weather/          Python MCP 天气助手
 ├── scripts/          启动 / 测试 / 数据库脚本
-├── public/           品牌、封面、海报、音乐、多端图标
+├── public/           品牌、封面、海报、音乐、多端图标（唯一事实源）
 ├── brand_assets/     品牌指南
 └── docs/             十二阶段文档体系
 ```
@@ -122,9 +240,12 @@ M-DongXiaoJie/
 - npm ≥ 9
 - PostgreSQL 15（`yyc3_music`，端口 `5433`；NAS Docker `yyc3-music`）
 
-### 启动
+### 克隆与安装
 
 ```bash
+git clone https://github.com/YYC-Cube/YYC3-Dong-MusAI.git
+cd YYC3-Dong-MusAI
+
 # 1. 后端（PostgreSQL 默认入口）
 cd api_service
 npm install
@@ -160,10 +281,10 @@ npm run dev
 
 ```bash
 cd api_service
-npm run pg:migrate     # 建立 m98 schema 与表结构
-npm run pg:import      # 归档 SQLite → PostgreSQL 幂等导入
+npm run pg:migrate      # 建立 m98 schema 与表结构
+npm run pg:import       # 归档 SQLite → PostgreSQL 幂等导入
 npm run pg:seed:content # 写入独家内容 / 博客 / 活动
-npm run pg:verify      # 行数与播放量校验
+npm run pg:verify       # 行数与播放量校验
 ```
 
 > 环境变量见 [0502-环境变量手册](./docs/05-YYC3-项目部署-文档闭环/0502-YYC3-项目部署-环境变量手册.md)，迁移细节见 [0503-PostgreSQL 适配与迁移指南](./docs/05-YYC3-项目部署-文档闭环/0503-YYC3-项目部署-PostgreSQL适配与迁移指南.md)。
@@ -177,6 +298,41 @@ npm run pg:verify      # 行数与播放量校验
 ```
 
 > 完整环境说明见 [开发环境指南](./docs/03-YYC3-项目开发-实施阶段/0302-YYC3-项目开发-开发环境指南.md)。
+
+---
+
+## 🚢 部署与 CI/CD
+
+### GitHub Pages（前端）
+
+| 项 | 值 |
+| ---- | ---- |
+| 线上域名 | [https://musai.yyc3.vip](https://musai.yyc3.vip) |
+| 自定义域名 | `public/CNAME` → `musai.yyc3.vip` |
+| 部署方式 | GitHub Actions · `deploy-pages.yml`（`build_type: workflow`） |
+| 构建目录 | `web_app/build` |
+| 触发条件 | `main` 分支变更 `web_app/**`、`public/**` 或部署工作流 |
+| HTTPS | 已启用并强制跳转 |
+
+发布链路：`push main` → CI 校验 → Pages 构建（资产 + CNAME 同步）→ 上传产物 → `deploy-pages` 发布 → 域名验收。
+
+### 自托管全栈
+
+```bash
+docker compose up -d --build
+```
+
+> 容器编排、Nginx、备份与回滚见 [0501-部署运维指南](./docs/05-YYC3-项目部署-文档闭环/0501-YYC3-项目部署-部署运维指南.md)。
+> Pages 与 CI 的完整操作手册见 [0504-GitHub Pages 与 CI/CD 指南](./docs/05-YYC3-项目部署-文档闭环/0504-YYC3-项目部署-GitHubPages与CI-CD指南.md)。
+
+### 流水线清单
+
+| 工作流 | 触发 | 内容 | 权限 |
+| ---- | ---- | ---- | ---- |
+| `ci.yml` | push / PR（main、develop） | 静态校验、Web 构建与测试、API 集成测试、Admin 构建 | `contents: read` |
+| `deploy-pages.yml` | push main / 手动 | Pages 构建、CNAME 校验、OIDC 发布 | `pages: write`、`id-token: write` |
+| `codeql.yml` | push / PR / 每周 | JavaScript / TypeScript 安全扫描 | `security-events: write` |
+| `dependabot.yml` | 每周 | npm 三端 + GitHub Actions 依赖更新 | — |
 
 ---
 
@@ -211,11 +367,13 @@ npm run pg:verify      # 行数与播放量校验
 
 > 引用规范见 [资源引用规范](./docs/08-YYC3-项目整合-实施阶段/0801-YYC3-项目整合-资源引用规范.md)，资产登记见 [媒体资产清单](./docs/09-YYC3-项目资产-知识管理/0901-YYC3-项目资产-媒体资产清单.md)。
 
-> **资产同步**：CRA 仅服务 `web_app/public`，`npm start` / `npm run build` 会通过 `prestart` / `prebuild` 自动执行 `scripts/sync-assets.js`，把根 `public/` 的白名单资产同步过去；也可手动执行 `npm run sync:assets`。
+> **资产同步**：CRA 仅服务 `web_app/public`，`npm start` / `npm run build` 会通过 `prestart` / `prebuild` 自动执行 `scripts/sync-assets.js`，把根 `public/` 的白名单资产（含 `CNAME`）同步过去；也可手动执行 `npm run sync:assets`。
 
 ---
 
 ## 📚 文档矩阵
+
+### 十二阶段文档
 
 | 阶段 | 文档 | 说明 |
 | ---- | ---- | ---- |
@@ -224,7 +382,7 @@ npm run pg:verify      # 行数与播放量校验
 | 02 设计 | [系统架构设计](./docs/02-YYC3-项目规划-设计阶段/0201-YYC3-项目规划-系统架构设计.md) | 分层与契约 |
 | 03 开发 | [功能实现清单](./docs/03-YYC3-项目开发-实施阶段/0301-YYC3-项目开发-功能实现清单.md) · [开发环境指南](./docs/03-YYC3-项目开发-实施阶段/0302-YYC3-项目开发-开发环境指南.md) | 实现与环境 |
 | 04 测试 | [全维度调研报告](./docs/04-YYC3-项目测试-审核阶段/0401-YYC3-项目测试-全维度调研报告.md) · [测试方案与用例](./docs/04-YYC3-项目测试-审核阶段/0402-YYC3-项目测试-测试方案与用例.md) | 诊断与用例 |
-| 05 部署 | [部署运维指南](./docs/05-YYC3-项目部署-文档闭环/0501-YYC3-项目部署-部署运维指南.md) | 发布与回滚 |
+| 05 部署 | [部署运维指南](./docs/05-YYC3-项目部署-文档闭环/0501-YYC3-项目部署-部署运维指南.md) · [GitHub Pages 与 CI/CD](./docs/05-YYC3-项目部署-文档闭环/0504-YYC3-项目部署-GitHubPages与CI-CD指南.md) | 发布与回滚 |
 | 06 运营 | [协作对接指引](./docs/06-YYC3-项目运营-维护阶段/0601-YYC3-项目运营-协作对接指引.md) | RACI 与流程 |
 | 07 合规 | [安全审计报告](./docs/07-YYC3-项目合规-安全保障/0701-YYC3-项目合规-安全审计报告.md) | 风险与整改 |
 | 08 整合 | [资源引用规范](./docs/08-YYC3-项目整合-实施阶段/0801-YYC3-项目整合-资源引用规范.md) | 资产唯一入口 |
@@ -235,27 +393,43 @@ npm run pg:verify      # 行数与播放量校验
 
 完整索引：[docs/README.md](./docs/README.md)
 
+### 开发者文档
+
+| 文件 | 内容 |
+| ---- | ---- |
+| [CONTRIBUTING.md](./CONTRIBUTING.md) | 贡献流程、分支规范、提交规范、测试与 PR 清单 |
+| [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) | 社区行为准则与执行机制 |
+| [SECURITY.md](./SECURITY.md) | 漏洞报告、响应时限与安全基线 |
+| [CHANGELOG.md](./CHANGELOG.md) | 版本变更记录（Keep a Changelog） |
+| [LICENSE](./LICENSE) | MIT（仅代码） |
+| [.github/](./.github/) | CI、Pages、CodeQL、Dependabot、Issue/PR 模板 |
+
 ---
 
 ## 🧪 质量与测试
 
-| 检查 | 状态 |
-| ---- | :--: |
-| JS / Python / JSON 语法 | ✅ |
-| 资源引用一致性（零 404） | ✅ |
-| 后端单元/接口测试（2 suites / 17 tests） | ✅ |
-| PG API 冒烟（10 读 + 写 + 边界） | ✅ |
-| 前端内容 API 接入（exclusive / blog / events） | ✅ |
-| 前端生产构建（CI=true） | ✅ |
-| 边界参数校验 | ✅ |
-| 依赖漏洞扫描（待复测） | 🟡 |
-| 前端组件测试 | ⏸ 待接入 |
-| E2E / 性能 / 兼容性 | ⏸ 待接入 |
+| 检查 | 执行方式 | 状态 |
+| ---- | ---- | :--: |
+| 静态校验（JSON / API 语法 / CNAME） | `ci.yml · static` | ✅ |
+| 前端生产构建（CI=true） | `ci.yml · web` | ✅ |
+| 前端单元测试 | `web_app/npm test` | ✅ |
+| 后端单元/接口测试（2 suites / 17 tests） | `api_service/npm test` | ✅ |
+| PG API 冒烟（10 读 + 写 + 边界） | `api_service/npm test` | ✅ |
+| 管理后台类型检查与构建 | `ci.yml · admin` | ✅ |
+| CodeQL 安全扫描 | `codeql.yml` | ✅ |
+| 依赖漏洞扫描 | Dependabot + `npm audit` | 🟡 |
+| E2E / 性能 / 兼容性 | 待接入 | ⏸ |
 
 ```bash
-# 静态检查
-find api_service/src web_app/src \( -name "*.js" -o -name "*.jsx" \) -exec node --check {} \;
+# 本地静态检查
+find api_service/src -type f -name "*.js" -exec node --check {} \;
 grep -rn "/assets/" web_app/src || echo "资源引用通过"
+
+# 前端构建与测试
+cd web_app && CI=true npm run build && CI=true npm test -- --watchAll=false
+
+# 后端测试（需 PostgreSQL 15）
+cd api_service && npm test
 ```
 
 测试方案与通过标准：[测试方案与用例](./docs/04-YYC3-项目测试-审核阶段/0402-YYC3-项目测试-测试方案与用例.md)
@@ -266,9 +440,9 @@ grep -rn "/assets/" web_app/src || echo "资源引用通过"
 
 | 阶段 | 目标 | 状态 |
 | ---- | ---- | :--: |
-| M0 | 基线冻结（Git / 文档） | 🔄 |
-| M1 | 止血（P0 修复 / 资源接线 / 密钥治理） | 🔄 |
-| M2 | 工程化（Vite + TS / CI / 测试 / Docker） | ⬜ |
+| M0 | 基线冻结（Git / 文档 / 远程仓库） | ✅ |
+| M1 | 止血（P0 修复 / 资源接线 / 密钥治理） | ✅ |
+| M2 | 工程化（CI / Pages / 测试 / Docker；Vite + TS 待推进） | 🟡 |
 | M3 | 体验完善（响应式 / 空态 / 无障碍） | ⬜ |
 | M4 | 生态扩展（后台 / 移动端 / AI 服务） | ⬜ |
 
@@ -278,43 +452,77 @@ grep -rn "/assets/" web_app/src || echo "资源引用通过"
 
 ## 🤝 贡献与治理
 
-| 文件 | 内容 |
-| ---- | ---- |
-| [CONTRIBUTING.md](./CONTRIBUTING.md) | 贡献流程、分支规范、提交规范、PR 清单 |
-| [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) | 社区行为准则 |
-| [SECURITY.md](./SECURITY.md) | 漏洞报告与安全基线 |
-| [CHANGELOG.md](./CHANGELOG.md) | 版本变更记录 |
-| [LICENSE](./LICENSE) | MIT（仅代码） |
-
 ### 提交规范
 
 ```text
 <type>(<scope>): <subject>
-类型：feat | fix | docs | style | refactor | test | chore
+类型：feat | fix | docs | style | refactor | perf | test | build | ci | chore
 示例：feat(player): 接入本地曲库真实音频播放
 ```
 
 ### 分支模型
 
 ```text
-main        生产
+main        生产（受保护，CI + 评审后合并）
 develop     开发
 feature/*   功能
+fix/*       缺陷
+docs/*      文档
+refactor/*  重构
 hotfix/*    热修
 release/*   发布
 ```
+
+### 合并门禁
+
+- `ci.yml` 全部 Job 通过
+- 至少 1 名评审人批准
+- 无密钥、Token、真实用户数据
+- 文档与 Swagger 已同步
+- 破坏性变更标注 `BREAKING CHANGE`
+
+详见 [CONTRIBUTING.md](./CONTRIBUTING.md)、[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) 与 [SECURITY.md](./SECURITY.md)。
 
 ---
 
 ## 🏷 仓库标签 / 关键词
 
+**GitHub Topics（建议并已同步）**
+
 ```text
-yyc3  m98  dongxiaojie  music-app  react  express  sqlite  mongodb
-fan-platform  ai-music  eastern-electronic  open-source
-言启象限  语枢未来  万象归元于云枢  深栈智启新纪元
+yyc3  m98  dongxiaojie  music  music-platform  fan-platform
+react  express  postgresql  github-pages  ci-cd  open-source
+ai-music  eastern-electronic  yyc3-standard
 ```
 
-> 建议在 GitHub 仓库 About 中设置 Topics，提升可发现性与生态关联。
+**About 描述**
+
+```text
+M98 董小姐音乐宇宙 · 东方电子音乐人生态 | React 18 + Express + PostgreSQL 15 | GitHub Pages: https://musai.yyc3.vip
+```
+
+**同步命令**
+
+```bash
+gh api -X PUT repos/YYC-Cube/YYC3-Dong-MusAI/topics \
+  -f "names[]=yyc3" \
+  -f "names[]=m98" \
+  -f "names[]=dongxiaojie" \
+  -f "names[]=music" \
+  -f "names[]=music-platform" \
+  -f "names[]=fan-platform" \
+  -f "names[]=react" \
+  -f "names[]=express" \
+  -f "names[]=postgresql" \
+  -f "names[]=github-pages" \
+  -f "names[]=ci-cd" \
+  -f "names[]=open-source" \
+  -f "names[]=ai-music" \
+  -f "names[]=eastern-electronic" \
+  -f "names[]=yyc3-standard"
+```
+
+**文档关键词**：言启象限 · 语枢未来 · 万象归元于云枢 · 深栈智启新纪元 · 五高五标五化五维 · 东方电子音乐 · 音乐人生态
 
 ---
 
@@ -331,8 +539,9 @@ fan-platform  ai-music  eastern-electronic  open-source
 | 渠道 | 地址 |
 | ---- | ---- |
 | 团队邮箱 | [admin@0379.email](mailto:admin@0379.email) |
-| 安全问题 | 见 [SECURITY.md](./SECURITY.md) |
+| 安全问题 | [SECURITY.md](./SECURITY.md) · [私密漏洞报告](https://github.com/YYC-Cube/YYC3-Dong-MusAI/security/advisories/new) |
 | 文档入口 | [docs/README.md](./docs/README.md) |
+| 线上站点 | [https://musai.yyc3.vip](https://musai.yyc3.vip) |
 
 ---
 

@@ -1,0 +1,164 @@
+# ============================================================
+# YYC³（YanYuCloudCube™ · 注册商标）
+# 言启象限 | 语枢未来 · Words Initiate Quadrants, Language Serves as Core for Future
+# 万象归元于云枢 | 深栈智启新纪元
+# All things converge in cloud pivot; Deep stacks ignite a new era of intelligence
+# ============================================================
+# Copyright (c) 2026 YanYuCloudCube™（YYC³）| admin@0379.email
+# ============================================================
+# 持续集成：静态校验 · Web 构建与测试 · API 集成测试 · 管理后台构建
+# ============================================================
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static:
+    name: Static · 静态校验
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate JSON manifests
+        run: |
+          node -e "
+          const fs = require('fs');
+          const files = ['web_app/package.json', 'api_service/package.json', 'admin_panel/package.json', 'web_app/public/manifest.json'];
+          for (const file of files) {
+            JSON.parse(fs.readFileSync(file, 'utf8'));
+            console.log('[json] ok:', file);
+          }
+          "
+
+      - name: Validate API syntax
+        run: |
+          find api_service/src -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+          echo '[syntax] api_service/src 通过'
+
+      - name: Validate CNAME
+        run: |
+          test "$(tr -d '\r\n' < public/CNAME)" = "musai.yyc3.vip"
+          echo '[pages] CNAME 校验通过'
+
+  web:
+    name: Web · 构建与测试
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web_app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: web_app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Production build
+        run: npm run build
+        env:
+          CI: true
+
+      - name: Unit tests
+        run: npm test -- --watchAll=false
+        env:
+          CI: true
+
+  api:
+    name: API · PostgreSQL 集成测试
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: yyc3_music
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d yyc3_music"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    defaults:
+      run:
+        working-directory: api_service
+    env:
+      NODE_ENV: test
+      PGHOST: localhost
+      PGPORT: 5432
+      PGDATABASE: yyc3_music
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGTEST_ADMIN_DATABASE: yyc3_music
+      PGTEST_DATABASE: yyc3_music_test
+      JWT_SECRET: ci-only-secret
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: ci-only-pass
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: api_service/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Apply schema
+        run: npm run pg:migrate
+
+      - name: Integration tests
+        run: npm test
+
+  admin:
+    name: Admin · 类型检查与构建
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: admin_panel
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: admin_panel/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build

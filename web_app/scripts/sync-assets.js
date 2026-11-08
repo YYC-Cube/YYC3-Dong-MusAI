@@ -35,6 +35,7 @@ const ENTRIES = [
   'D-MusAI.png',
   'D-music.png',
   'music.png',
+  'CNAME',
 ];
 
 let copied = 0;

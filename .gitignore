@@ -29,6 +29,7 @@ __pycache__/
 .DS_Store
 
 # Generated asset copies (source of truth: /public)
+web_app/public/CNAME
 web_app/public/D-Music/
 web_app/public/D-Music-icons/
 web_app/public/D-cover/

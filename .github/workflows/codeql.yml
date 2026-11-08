@@ -1,0 +1,54 @@
+# ============================================================
+# YYC³（YanYuCloudCube™ · 注册商标）
+# 言启象限 | 语枢未来 · Words Initiate Quadrants, Language Serves as Core for Future
+# 万象归元于云枢 | 深栈智启新纪元
+# All things converge in cloud pivot; Deep stacks ignite a new era of intelligence
+# ============================================================
+# Copyright (c) 2026 YanYuCloudCube™（YYC³）| admin@0379.email
+# ============================================================
+# CodeQL：JavaScript / TypeScript 静态安全扫描
+# ============================================================
+name: CodeQL
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze · 安全扫描
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript-typescript]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: '/language:${{ matrix.language }}'

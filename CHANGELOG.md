@@ -8,11 +8,40 @@
 
 ### 计划
 
-- 移除 `server.js` 重复监听
+- 移除 `server.js` 重复监听（历史残留已清理，待复核）
 - 修正 `docker-compose.yml` 中不存在的 AI 服务
 - 数据源收敛为单一事实源
 - 列表接口参数校验与限流
 - `.env` 密钥治理与 `.env.example`
+
+---
+
+## [1.7.0] - 2026-11-09
+
+### 新增
+
+- 接入远程仓库 `https://github.com/YYC-Cube/YYC3-Dong-MusAI.git`
+- GitHub Pages 部署：`deploy-pages.yml` + 自定义域名 `musai.yyc3.vip` + HTTPS
+- CI 流水线 `ci.yml`：静态校验、Web 构建与测试、API PostgreSQL 集成测试、Admin 构建
+- CodeQL 安全扫描 `codeql.yml` 与 Dependabot 依赖更新 `dependabot.yml`
+- Issue / PR 模板：`PULL_REQUEST_TEMPLATE.md`、`bug_report.yml`、`feature_request.yml`
+- Pages SPA 回退页 `web_app/public/404.html`
+- 部署文档 [0504-GitHub Pages 与 CI/CD 指南](docs/05-YYC3-项目部署-文档闭环/0504-YYC3-项目部署-GitHubPages与CI-CD指南.md)
+
+### 变更
+
+- README 开源级升级：CI / Pages / 在线站点徽章、Mermaid 可视化架构、CI/CD 流水线、仓库 Topics
+- `CONTRIBUTING.md` / `SECURITY.md` / `CODE_OF_CONDUCT.md` 对齐真实仓库、PostgreSQL 流程与开源治理
+- `web_app/scripts/sync-assets.js` 白名单新增 `CNAME`，构建时自动写入 Pages 产物
+- `.gitignore` 排除生成的 `web_app/public/CNAME`，保持根 `public/CNAME` 为唯一事实源
+- 文档索引与仓库关键词同步：移除过期 `sqlite/mongodb` 标签，增加 `postgresql/github-pages/ci-cd`
+
+### 验证
+
+- `CI=true npm run build` 前端生产构建通过
+- `web_app/build/CNAME` 与 `public/CNAME` 一致
+- CI 工作流 YAML 通过 GitHub Actions 解析
+- Pages 部署后 `https://musai.yyc3.vip` 可访问
 
 ---
 

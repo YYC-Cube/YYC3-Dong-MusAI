@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安全漏洞报告
+    url: https://github.com/YYC-Cube/YYC3-Dong-MusAI/security/advisories/new
+    about: 请勿公开提交安全漏洞，使用 GitHub 私密漏洞报告
+  - name: 使用与开发文档
+    url: https://github.com/YYC-Cube/YYC3-Dong-MusAI/blob/main/docs/README.md
+    about: 先查阅十二阶段文档索引与开发环境指南
+  - name: 贡献指南
+    url: https://github.com/YYC-Cube/YYC3-Dong-MusAI/blob/main/CONTRIBUTING.md
+    about: 分支、提交、测试与 PR 流程
