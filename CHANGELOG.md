@@ -55,6 +55,8 @@
 - API 集成测试 2 suites / 17 tests 通过（Express 5）
 - Admin `vue-tsc --noEmit && vite build` 通过
 - Playwright：1440 / 1024 / 390 三档 `scrollWidth === innerWidth`，零破图、零错误态
+- Docker：web / api 镜像构建通过，Nginx 容器首页 200
+- Dependabot：活跃告警收敛至 3 项（`swagger-jsdoc` 传递依赖）
 
 ---
 
